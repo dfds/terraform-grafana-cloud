@@ -10,7 +10,7 @@ resource "aws_route53_record" "this" {
   count = var.hosted_zone_name != null ? 1 : 0
 
   zone_id = data.aws_route53_zone.this[count.index].zone_id
-  name = var.slug
+  name = var.route53_record_name
   type = "CNAME"
   ttl  = 300
   records = ["${var.slug}.grafana.net"]

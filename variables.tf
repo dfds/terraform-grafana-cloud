@@ -39,3 +39,9 @@ variable "grafana_folders" {
   description = "List of grafana folders to be created"
   default = []
 }
+
+variable "route53_record_name" {
+  type = string
+  description = "Name of the route53 record"
+  default = null
+}
