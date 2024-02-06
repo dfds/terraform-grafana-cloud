@@ -1,7 +1,7 @@
-output "grafana_dashboard_uid" {
-  value = grafana_dashboard.this.uid
+output "uid" {
+  value = [for dashboard in grafana_dashboard.this : dashboard.uid]
 }
 
-output "grafana_dashboard_url" {
-  value = grafana_dashboard.this.url
+output "url" {
+  value = [for dashboard in grafana_dashboard.this : dashboard.url]
 }

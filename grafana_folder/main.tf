@@ -1,5 +1,5 @@
 locals {
-  uid = var.uid == null ? random_uuid.this.value : var.uid
+  uid = var.uid == null ? random_uuid.this.result : var.uid
 }
 
 resource "random_uuid" "this" {

@@ -1,6 +1,6 @@
 variable "config_json" {
-  type        = string
-  description = "The complete dashboard model JSON"
+  type        = list(string)
+  description = "A list of files of with JSON content."
 }
 
 variable "folder" {

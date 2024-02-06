@@ -3,9 +3,8 @@ terraform {
 
   required_providers {
     grafana = {
-      source                = "grafana/grafana"
-      version               = ">= 2.9.0"
-      configuration_aliases = [grafana.cloud]
+      source  = "grafana/grafana"
+      version = ">= 2.9.0"
     }
   }
 }

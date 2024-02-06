@@ -1,7 +1,7 @@
-output "grafana_folder_id" {
+output "id" {
   value = grafana_folder.this.id
 }
 
-output "grafana_folder_url" {
+output "url" {
   value = grafana_folder.this.url
 }
