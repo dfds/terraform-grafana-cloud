@@ -1,7 +1,6 @@
 variable "config_json" {
   type        = string
   description = "The complete dashboard model JSON"
-
 }
 
 variable "folder" {
