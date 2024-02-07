@@ -1,5 +1,5 @@
 variable "config_json" {
-  type        = list(string)
+  type        = list(map(string))
   description = "A list of files of with JSON content."
 }
 

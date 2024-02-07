@@ -1,7 +1,7 @@
 resource "grafana_dashboard" "this" {
-  for_each    = toset(var.config_json)
+  count       = length(var.config_json)
   folder      = var.folder
-  config_json = each.value
+  config_json = var.config_json[count.index]["content"]
   overwrite   = var.overwrite
 }
 
@@ -12,8 +12,8 @@ resource "grafana_dashboard_permission" "this" {
   dynamic "permissions" {
     for_each = var.permissions
     content {
-      role       = permissions.value["permission"]
-      permission = permissions.value["role"]
+      permission = permissions.value["permission"]
+      role       = permissions.value["role"]
       team_id    = permissions.value["team_id"]
       user_id    = permissions.value["user_id"]
     }
