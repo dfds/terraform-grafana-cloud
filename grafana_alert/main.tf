@@ -1,8 +1,8 @@
 
 resource "grafana_rule_group" "alertrule" {
   for_each   = { for file in var.alertrule_files : file => jsondecode(file("${file}")) }
-  name       = each.value.groups[0].name # for now terraform gets 404 response when slash is in name.  See #883
-  folder_uid = var.folder                #each.value.folderUID
+  name       = each.value.groups[0].name
+  folder_uid = var.folder
   #   interval_seconds = each.value.groups[0].interval # Cannot read string property "1m"
   interval_seconds = 60
 

@@ -1,10 +1,7 @@
 variable "folder" {
-
+  description = "UID of the folder to create the alert rules in"
 }
 
-variable "group_internal" {
-  default = 240
-}
 variable "alertrule_files" {
-
+  description = "Path to the json files with alert rules"
 }
