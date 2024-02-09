@@ -1,13 +1,18 @@
+locals {
+  # This crazy piece of code converts the incoming list to a map, so that we can create state objects by name instead of by index.
+  json_data_map = zipmap([for item in var.config_json : item.filename], [for item in var.config_json : item.content])
+}
+
 resource "grafana_dashboard" "this" {
-  count       = length(var.config_json)
+  for_each    = local.json_data_map
   folder      = var.folder
-  config_json = var.config_json[count.index]["content"]
+  config_json = each.value
   overwrite   = var.overwrite
 }
 
 resource "grafana_dashboard_permission" "this" {
-  count         = length(grafana_dashboard.this)
-  dashboard_uid = grafana_dashboard.this[count.index].uid
+  for_each      = grafana_dashboard.this
+  dashboard_uid = each.value["uid"]
 
   dynamic "permissions" {
     for_each = var.permissions
