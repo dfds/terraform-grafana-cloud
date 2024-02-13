@@ -28,3 +28,12 @@ resource "grafana_cloud_stack_service_account_token" "this" {
   name               = "${local.service_account_name}-key"
   service_account_id = grafana_cloud_stack_service_account.this.id
 }
+
+resource "grafana_cloud_plugin_installation" "this" {
+  for_each = { for x in var.plugins : x.plugin => x }
+  provider = grafana.cloud
+
+  stack_slug = grafana_cloud_stack.this.slug
+  slug       = each.value.plugin
+  version    = each.value.version
+}
