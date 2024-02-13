@@ -1,6 +1,5 @@
 locals {
   service_account_name = "${var.slug}-terraform-sa"
-  stack_name = var.hosted_zone_name != null ? aws_route53_record.this[0].fqdn : var.stack_name
 }
 
 resource "grafana_cloud_stack" "this" {
@@ -31,8 +30,10 @@ resource "grafana_cloud_stack_service_account_token" "this" {
 }
 
 resource "grafana_cloud_plugin_installation" "this" {
-  for_each = var.plugins
-  stack_slug = local.stack_name
+  for_each = { for x in var.plugins : x.plugin => x }
+  provider = grafana.cloud
+
+  stack_slug = grafana_cloud_stack.this.slug
   slug       = each.value.plugin
   version    = each.value.version
 }
