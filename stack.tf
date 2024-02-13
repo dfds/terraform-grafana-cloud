@@ -1,5 +1,5 @@
 locals {
-  service_account_name = "${var.slug}-terraform-sa
+  service_account_name = "${var.slug}-terraform-sa"
   stack_name = var.hosted_zone_name != null ? aws_route53_record.this[0].fqdn : var.stack_name
 }
 
