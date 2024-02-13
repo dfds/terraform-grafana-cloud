@@ -54,3 +54,8 @@ variable "plugins" {
   description = "List of plugins"
   default = []
 }
+
+variable "install_synthetic_monitoring" {
+  type = bool
+  description = "Whether to install synthetic monitoring"
+}
