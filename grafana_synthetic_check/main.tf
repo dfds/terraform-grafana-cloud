@@ -1,5 +1,5 @@
 
-data "grafana_synthetic_monitoring_probes" "main" {}
+data "grafana_synthetic_monitoring_probes" "this" {}
 
 
 resource "grafana_synthetic_monitoring_check" "http" {
@@ -8,8 +8,8 @@ resource "grafana_synthetic_monitoring_check" "http" {
   target  = var.target
   enabled = var.is_enabled
   probes = [
-    data.grafana_synthetic_monitoring_probes.main.probes.Frankfurt,
-    data.grafana_synthetic_monitoring_probes.main.probes.London,
+    data.grafana_synthetic_monitoring_probes.this.probes.Frankfurt,
+    data.grafana_synthetic_monitoring_probes.this.probes.London,
   ]
   labels = var.labels
 
