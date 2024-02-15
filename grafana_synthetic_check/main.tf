@@ -16,9 +16,12 @@ resource "grafana_synthetic_monitoring_check" "http" {
   settings {
     http {
       method = var.http_check_settings.method
-      basic_auth {
-        username = var.http_check_settings.basic_auth.username
-        password = var.http_check_settings.basic_auth.password
+      dynamic "basic_auth" {
+        for_each = var.http_check_settings.basic_auth != null ? [var.http_check_settings.basic_auth] : []
+        content {
+          username = var.http_check_settings.basic_auth.username
+          password = var.http_check_settings.basic_auth.password
+        }
       }
       valid_status_codes  = var.http_check_settings.valid_status_codes
       no_follow_redirects = var.http_check_settings.no_follow_redirects
