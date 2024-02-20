@@ -17,13 +17,19 @@ resource "grafana_synthetic_monitoring_check" "http" {
 
   settings {
     http {
-      method       = upper(try(each.value.settings.method, "GET"))
-      bearer_token = try(each.value.settings.bearer_token, null)
+      method = upper(try(each.value.settings.method, "GET"))
+      # This will check if var.bearer_token map contains a name that matches the bearer_token value from the synthetic file.
+      # If so it will use the token from the map.
+      bearer_token = try(lookup(var.bearer_token, each.value.settings.bearer_token, null), null)
       dynamic "basic_auth" {
-        for_each = try([each.value.settings.basic_auth], [])
+        # This lookup will check if var.basic_auth map contains a name that matches the basic_auth value from the synthetic file.
+        # If so it will treat it as a list with one record that contains a child map with username and password.
+        for_each = try(lookup(var.basic_auth, each.value.settings.basic_auth, null), null) != null ? try([each.value.settings.basic_auth], []) : []
         content {
-          username = try(each.value.settings.basic_auth.username, null)
-          password = try(each.value.settings.basic_auth.password, null)
+          # It will lookup the username from the child map.
+          username = lookup(lookup(var.basic_auth, each.value.settings.basic_auth, {}), "username", null)
+          # It will lookup the password from the child map.
+          password = lookup(lookup(var.basic_auth, each.value.settings.basic_auth, {}), "password", null)
         }
       }
       valid_status_codes  = try(each.value.settings.valid_status_codes, [200])
