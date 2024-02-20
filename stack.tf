@@ -1,5 +1,5 @@
 locals {
-  service_account_name = "${var.slug}-terraform-sa"
+  service_account_name = "terraform-sa"
 }
 
 resource "grafana_cloud_stack" "this" {
@@ -27,4 +27,29 @@ resource "grafana_cloud_stack_service_account_token" "this" {
 
   name               = "${local.service_account_name}-key"
   service_account_id = grafana_cloud_stack_service_account.this.id
+}
+
+resource "aws_ssm_parameter" "grafana_cloud_stack_service_account_token" {
+  provider = aws.route53
+
+  name  = "/grafana-cloud/${var.route53_record_name}/${local.service_account_name}-access-token"
+  type  = "SecureString"
+  value = grafana_cloud_stack_service_account_token.this.key
+}
+
+resource "aws_ssm_parameter" "grafana_cloud_stack_url" {
+  provider = aws.route53
+
+  name  = "/grafana-cloud/${var.route53_record_name}/stack-url"
+  type  = "String"
+  value = grafana_cloud_stack.this.url
+}
+
+resource "grafana_cloud_plugin_installation" "this" {
+  for_each = { for x in var.plugins : x.plugin => x }
+  provider = grafana.cloud
+
+  stack_slug = grafana_cloud_stack.this.slug
+  slug       = each.value.plugin
+  version    = each.value.version
 }

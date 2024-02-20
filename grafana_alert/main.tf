@@ -13,7 +13,7 @@ resource "grafana_rule_group" "alertrule" {
       for            = rule.value.for
       condition      = rule.value.condition
       no_data_state  = rule.value.noDataState
-      annotations    = rule.value.annotations
+      annotations    = try(rule.value.annotations, null)
       exec_err_state = rule.value.execErrState
       is_paused      = rule.value.isPaused
       labels         = rule.value.labels

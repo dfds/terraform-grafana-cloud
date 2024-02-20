@@ -45,3 +45,17 @@ variable "route53_record_name" {
   description = "Name of the route53 record"
   default = null
 }
+
+variable "plugins" {
+  type = list(object({
+    plugin = string
+    version = string
+  }))
+  description = "List of plugins"
+  default = []
+}
+
+variable "install_synthetic_monitoring" {
+  type = bool
+  description = "Whether to install synthetic monitoring"
+}
