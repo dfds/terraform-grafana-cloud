@@ -15,7 +15,13 @@ resource "grafana_synthetic_monitoring_check" "http" {
 
   settings {
     http {
-      method = var.http_check_settings.method
+      method = upper(var.http_check_settings.method)
+      dynamic "bearer_token" {
+        for_each = var.http_check_settings.bearer_token != null ? [var.http_check_settings.bearer_token] : []
+        content {
+          token = var.http_check_settings.bearer_token.token
+        }
+      }
       dynamic "basic_auth" {
         for_each = var.http_check_settings.basic_auth != null ? [var.http_check_settings.basic_auth] : []
         content {
@@ -27,16 +33,4 @@ resource "grafana_synthetic_monitoring_check" "http" {
       no_follow_redirects = var.http_check_settings.no_follow_redirects
     }
   }
-}
-
-variable "http_check_settings" {
-  type = object({
-    method = string                // GET, POST, PUT, DELETE, HEAD, OPTIONS, PATCH
-    basic_auth = optional(object({ # Optional
-      username = string
-      password = string
-    }), null)
-    valid_status_codes  = list(number)
-    no_follow_redirects = optional(bool, false)
-  })
 }

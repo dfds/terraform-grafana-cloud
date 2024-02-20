@@ -19,3 +19,18 @@ variable "labels" {
   type        = map(string)
   default     = {}
 }
+
+variable "http_check_settings" {
+  type = object({
+    method = string                  // GET, POST, PUT, DELETE, HEAD, OPTIONS, PATCH
+    bearer_token = optional(object({ # Optional
+      token = string
+    }), null)
+    basic_auth = optional(object({ # Optional
+      username = string
+      password = string
+    }), null)
+    valid_status_codes  = list(number)
+    no_follow_redirects = optional(bool, false)
+  })
+}
