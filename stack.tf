@@ -1,5 +1,5 @@
 locals {
-  service_account_name = "${var.slug}-terraform-sa"
+  service_account_name = "terraform-sa"
 }
 
 resource "grafana_cloud_stack" "this" {
