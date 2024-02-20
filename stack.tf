@@ -37,6 +37,14 @@ resource "aws_ssm_parameter" "grafana_cloud_stack_service_account_token" {
   value = grafana_cloud_stack_service_account_token.this.key
 }
 
+resource "aws_ssm_parameter" "grafana_cloud_stack_url" {
+  provider = aws.route53
+
+  name  = "/grafana-cloud/${var.route53_record_name}/stack-url"
+  type  = "String"
+  value = grafana_cloud_stack.this.url
+}
+
 resource "grafana_cloud_plugin_installation" "this" {
   for_each = { for x in var.plugins : x.plugin => x }
   provider = grafana.cloud
