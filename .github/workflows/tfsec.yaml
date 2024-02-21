@@ -1,28 +1,10 @@
-name: Run tfsec on merge
+name: Run Trivy IAC with Quality Gate
 on:
   push:
-    branches: [ "master", "main" ]
+    branches: ["master", "main"]
   pull_request:
-    branches: [ "master", "main" ]
+    branches: ["master", "main"]
   workflow_dispatch:
 jobs:
-  tfsec:
-    name: tfsec sarif report
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Clone repo
-        uses: actions/checkout@master
-
-      - name: tfsec
-        uses: aquasecurity/tfsec-sarif-action@master
-        with:
-          sarif_file: tfsec.sarif
-
-      # Disabled this until repo is switched to be public
-      # - name: Upload SARIF file
-      #   uses: github/codeql-action/upload-sarif@v2
-      #   with:
-      #     # Path to SARIF file relative to the root of the repository
-      #     sarif_file: tfsec.sarif
-      #     category: Tfsec IAC Scanning
+  shared:
+    uses: dfds/shared-workflows/.github/workflows/security-trivy-iac-check.yaml@master
