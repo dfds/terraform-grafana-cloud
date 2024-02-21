@@ -1,5 +1,7 @@
-
-data "grafana_synthetic_monitoring_probes" "this" {}
+data "grafana_synthetic_monitoring_probe" "this" {
+  count = length(var.synthetic_probes)
+  name  = var.synthetic_probes[count.index]
+}
 
 resource "grafana_synthetic_monitoring_check" "http" {
   for_each = { for file in var.synthetic_files : file => jsondecode(file(file))
@@ -10,8 +12,8 @@ resource "grafana_synthetic_monitoring_check" "http" {
   frequency = try(each.value.frequency, 60000)
   timeout   = try(each.value.timeout, 3000)
   probes = [
-    data.grafana_synthetic_monitoring_probes.this.probes.Frankfurt,
-    data.grafana_synthetic_monitoring_probes.this.probes.London,
+    for probe in data.grafana_synthetic_monitoring_probe.this :
+    probe.id
   ]
   labels = try(each.value.labels, {})
 

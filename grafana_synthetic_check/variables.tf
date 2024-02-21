@@ -29,3 +29,20 @@ variable "basic_auth" {
   sensitive   = true
   default     = {}
 }
+
+variable "synthetic_probes" {
+  description = <<EOF
+    List of synthetic monitoring probes to use for the synthetic monitoring targets.
+  EOF
+  type        = list(string)
+  validation {
+    condition     = can(regexall("Amsterdam|Atlanta|Bangalore|CapeTown|Dallas|Frankfurt|London|Mumbai|NewYork|Newark|NorthCalifornia|NorthVirginia|Ohio|Oregon|Paris|SanFrancisco|SaoPaulo|Seoul|Singapore|Sydney|Tokyo|Toronto", join(",", var.synthetic_probes)))
+    error_message = <<EOF
+      Invalid value for log_level. Valid values:
+      Amsterdam, Atlanta, Bangalore, CapeTown, Dallas, Frankfurt, London, Mumbai,
+      NewYork, Newark, NorthCalifornia, NorthVirginia, Ohio, Oregon, Paris,
+      SanFrancisco, SaoPaulo, Seoul, Singapore, Sydney, Tokyo, Toronto
+    EOF
+  }
+  default = ["Frankfurt", "London"]
+}
