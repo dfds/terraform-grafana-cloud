@@ -1,21 +1,12 @@
-
-
-
 resource "grafana_data_source" "cloudwatch" {
+  for_each = { for file in var.data_sources : file => jsondecode(file("${file}"))
+  }
   type = "cloudwatch"
-  name = var.cloudwatch_connection.name
+  name = each.value.name
 
   json_data_encoded = jsonencode({
-    defaultRegion = var.cloudwatch_connection.defaultRegion
-    authType      = "grafana_assume_role"
-    assumeRoleArn = var.cloudwatch_connection.assumeRoleArn
-  })
-}
-
-variable "cloudwatch_connection" {
-  type = object({
-    name          = string
-    defaultRegion = string
-    assumeRoleArn = string
+    defaultRegion = each.value.defaultRegion
+    authType      = each.value.authType
+    assumeRoleArn = each.value.assumeRoleArn
   })
 }
