@@ -1,4 +1,4 @@
-resource "grafana_data_source" "cloudwatch" {
+resource "grafana_data_source" "athena" {
   for_each = { for file in var.data_sources : file => jsondecode(file("${file}"))
   }
   type = "grafana-athena-datasource"
