@@ -59,3 +59,9 @@ variable "install_synthetic_monitoring" {
   type = bool
   description = "Whether to install synthetic monitoring"
 }
+
+variable "enable_otlp" {
+  type = bool
+  description = "Whether to enable OpenTelemetry"
+  default = false
+}
