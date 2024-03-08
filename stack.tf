@@ -1,5 +1,6 @@
 locals {
   service_account_name = "terraform-sa"
+  otlp_name            = "${var.route53_record_name}-otlp-access"
 }
 
 resource "grafana_cloud_stack" "this" {
@@ -52,4 +53,35 @@ resource "grafana_cloud_plugin_installation" "this" {
   stack_slug = grafana_cloud_stack.this.slug
   slug       = each.value.plugin
   version    = each.value.version
+}
+
+resource "grafana_cloud_access_policy" "otlp" {
+  count = var.enable_otlp ? 1 : 0
+  provider = grafana.cloud
+
+  region = grafana_cloud_stack.this.region_slug
+  name   = local.otlp_name
+  scopes = ["metrics:write", "metrics:import", "logs:write", "traces:write", "alerts:write", "rules:write", "profiles:write"]
+  realm {
+    type       = "stack"
+    identifier = grafana_cloud_stack.this.id
+  }
+}
+
+resource "grafana_cloud_access_policy_token" "otlp" {
+  count = var.enable_otlp ? 1 : 0
+  provider = grafana.cloud
+
+  region           = grafana_cloud_stack.this.region_slug
+  access_policy_id = grafana_cloud_access_policy.otlp[0].policy_id
+  name             = local.otlp_name
+}
+
+resource "aws_ssm_parameter" "otlp_access_token" {
+  count = var.enable_otlp ? 1 : 0
+  provider = aws.route53
+
+  name  = "/grafana-cloud/${var.route53_record_name}/otlp-access-token"
+  type  = "SecureString"
+  value = grafana_cloud_access_policy_token.otlp[0].token
 }
