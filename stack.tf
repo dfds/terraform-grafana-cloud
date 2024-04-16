@@ -1,6 +1,7 @@
 locals {
   service_account_name = "terraform-sa"
   otlp_name            = "${var.route53_record_name}-otlp-access"
+  read_only_name       = "${var.route53_record_name}-read-only-access"
 }
 
 resource "grafana_cloud_stack" "this" {
@@ -14,7 +15,7 @@ resource "grafana_cloud_stack" "this" {
 }
 
 resource "grafana_cloud_stack_service_account" "this" {
-  provider = grafana.cloud
+  provider   = grafana.cloud
   stack_slug = grafana_cloud_stack.this.slug
 
   name        = local.service_account_name
@@ -23,7 +24,7 @@ resource "grafana_cloud_stack_service_account" "this" {
 }
 
 resource "grafana_cloud_stack_service_account_token" "this" {
-  provider = grafana.cloud
+  provider   = grafana.cloud
   stack_slug = grafana_cloud_stack.this.slug
 
   name               = "${local.service_account_name}-key"
@@ -56,7 +57,7 @@ resource "grafana_cloud_plugin_installation" "this" {
 }
 
 resource "grafana_cloud_access_policy" "otlp" {
-  count = var.enable_otlp ? 1 : 0
+  count    = var.enable_otlp ? 1 : 0
   provider = grafana.cloud
 
   region = grafana_cloud_stack.this.region_slug
@@ -69,7 +70,7 @@ resource "grafana_cloud_access_policy" "otlp" {
 }
 
 resource "grafana_cloud_access_policy_token" "otlp" {
-  count = var.enable_otlp ? 1 : 0
+  count    = var.enable_otlp ? 1 : 0
   provider = grafana.cloud
 
   region           = grafana_cloud_stack.this.region_slug
@@ -78,10 +79,41 @@ resource "grafana_cloud_access_policy_token" "otlp" {
 }
 
 resource "aws_ssm_parameter" "otlp_access_token" {
-  count = var.enable_otlp ? 1 : 0
+  count    = var.enable_otlp ? 1 : 0
   provider = aws.route53
 
   name  = "/grafana-cloud/${var.route53_record_name}/otlp-access-token"
   type  = "SecureString"
   value = grafana_cloud_access_policy_token.otlp[0].token
+}
+
+resource "grafana_cloud_access_policy" "read_only" {
+  count    = var.create_read_only_token ? 1 : 0
+  provider = grafana.cloud
+
+  region = grafana_cloud_stack.this.region_slug
+  name   = local.read_only_name
+  scopes = ["metrics:read", "logs:read", "traces:read"]
+  realm {
+    type       = "stack"
+    identifier = grafana_cloud_stack.this.id
+  }
+}
+
+resource "grafana_cloud_access_policy_token" "read_only" {
+  count    = var.create_read_only_token ? 1 : 0
+  provider = grafana.cloud
+
+  region           = grafana_cloud_stack.this.region_slug
+  access_policy_id = grafana_cloud_access_policy.read_only[0].policy_id
+  name             = local.read_only_name
+}
+
+resource "aws_ssm_parameter" "read_only" {
+  count    = var.create_read_only_token ? 1 : 0
+  provider = aws.route53
+
+  name  = "/grafana-cloud/${var.route53_record_name}/read-only-access-token"
+  type  = "SecureString"
+  value = grafana_cloud_access_policy_token.read_only[0].token
 }
