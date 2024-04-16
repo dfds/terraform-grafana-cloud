@@ -71,3 +71,107 @@ variable "create_read_only_token" {
   description = "Whether to create a read-only token"
   default     = false
 }
+
+variable "sso_provider" {
+  type = string
+  description = "The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml"
+  default = "saml"
+}
+
+variable "saml_name" {
+  type = string
+  description = "Display name for the saml configuration"
+  default = "SAML"
+}
+
+variable "allow_sign_up" {
+  type = bool
+  description = "Whether to allow new Grafana user creation through SAML login. If set to false, then only existing Grafana users can log in with SAML."
+  default = null
+}
+
+variable "single_logout" {
+  type = bool
+  description = "Whether SAML Single Logout is enabled"
+  default = null
+}
+
+variable "certificate" {
+  type = string
+  description = "Base64-encoded string for the SP X.509 certificate"
+  sensitive = true
+  default = ""
+}
+
+variable "private_key" {
+  type = string
+  description = "Base64-encoded string for the SP private key"
+  sensitive = true
+  default = ""
+}
+
+variable "signature_algorithm" {
+  type = string
+  description = "Signature algorithm used for signing requests to the IdP. Supported values are rsa-sha1, rsa-sha256, rsa-sha512"
+  default = "rsa-sha256"
+}
+
+variable "idp_metadata_url" {
+  type = string
+  description = "URL for the IdP SAML metadata XML"
+  default = ""
+}
+
+variable "assertion_attribute_name" {
+  type = string
+  description = "Friendly name or name of the attribute within the SAML assertion to use as the user name"
+  default = ""
+}
+
+variable "assertion_attribute_login" {
+  type = string
+  description = "Friendly name or name of the attribute within the SAML assertion to use as the user login handle"
+  default = ""
+}
+
+variable "assertion_attribute_email" {
+  type = string
+  description = "Friendly name or name of the attribute within the SAML assertion to use as the user email"
+  default = ""
+}
+
+variable "assertion_attribute_groups" {
+  type = string
+  description = "Friendly name or name of the attribute within the SAML assertion to use as the user groups"
+  default = ""
+}
+
+variable "assertion_attribute_role" {
+  type = string
+  description = "Friendly name or name of the attribute within the SAML assertion to use as the user roles"
+  default = ""
+}
+
+variable "role_values_admin" {
+  type = string
+  description = "List of comma- or space-separated roles which will be mapped into the Admin role"
+  default = ""
+}
+
+variable "role_values_editor" {
+  type = string
+  description = "List of comma- or space-separated roles which will be mapped into the Editor role"
+  default = ""
+}
+
+variable "name_id_format" {
+  type = string
+  description = "The Name ID Format to request within the SAML assertion"
+  default = ""
+}
+
+variable "saml_enabled" {
+  type = bool
+  description = "Define whether this configuration is enabled for the specified provider"
+  default = false
+}
