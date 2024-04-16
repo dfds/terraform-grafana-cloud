@@ -25,11 +25,14 @@ No modules.
 | [aws_ssm_parameter.grafana_cloud_stack_service_account_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_ssm_parameter.grafana_cloud_stack_url](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_ssm_parameter.otlp_access_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
+| [aws_ssm_parameter.read_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_ssm_parameter.sm_access_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_ssm_parameter.sm_api_url](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [grafana_cloud_access_policy.otlp](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy) | resource |
+| [grafana_cloud_access_policy.read_only](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy) | resource |
 | [grafana_cloud_access_policy.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy) | resource |
 | [grafana_cloud_access_policy_token.otlp](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy_token) | resource |
+| [grafana_cloud_access_policy_token.read_only](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy_token) | resource |
 | [grafana_cloud_access_policy_token.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy_token) | resource |
 | [grafana_cloud_plugin_installation.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_plugin_installation) | resource |
 | [grafana_cloud_stack.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_stack) | resource |
@@ -42,11 +45,12 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_create_read_only_token"></a> [create\_read\_only\_token](#input\_create\_read\_only\_token) | Whether to create a read-only token | `bool` | `false` | no |
 | <a name="input_enable_otlp"></a> [enable\_otlp](#input\_enable\_otlp) | Whether to enable OpenTelemetry | `bool` | `false` | no |
 | <a name="input_grafana_folders"></a> [grafana\_folders](#input\_grafana\_folders) | List of grafana folders to be created | `list(string)` | `[]` | no |
 | <a name="input_hosted_zone_name"></a> [hosted\_zone\_name](#input\_hosted\_zone\_name) | Name of the hosted zone to contain the route53 record. If unspecified no route53 record is created. | `string` | `null` | no |
 | <a name="input_install_synthetic_monitoring"></a> [install\_synthetic\_monitoring](#input\_install\_synthetic\_monitoring) | Whether to install synthetic monitoring | `bool` | n/a | yes |
-| <a name="input_plugins"></a> [plugins](#input\_plugins) | List of plugins | <pre>list(object({<br>    plugin = string<br>    version = string<br>  }))</pre> | `[]` | no |
+| <a name="input_plugins"></a> [plugins](#input\_plugins) | List of plugins | <pre>list(object({<br>    plugin  = string<br>    version = string<br>  }))</pre> | `[]` | no |
 | <a name="input_region_slug"></a> [region\_slug](#input\_region\_slug) | Region slug to assign to this stack. Changing region will destroy the existing stack and create a new one in the desired region | `string` | `null` | no |
 | <a name="input_route53_record_name"></a> [route53\_record\_name](#input\_route53\_record\_name) | Name of the route53 record | `string` | `null` | no |
 | <a name="input_slug"></a> [slug](#input\_slug) | Subdomain that the Grafana instance will be available at (i.e. setting slug to empty string will make the instance available at `https://.grafana.net` | `string` | `null` | no |
