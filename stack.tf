@@ -117,3 +117,40 @@ resource "aws_ssm_parameter" "read_only" {
   type  = "SecureString"
   value = grafana_cloud_access_policy_token.read_only[0].token
 }
+
+resource "grafana_team" "this" {
+  provider = grafana.stack
+  for_each = { for team in var.teams : team.name => team }
+
+  name = each.value.name
+  team_sync {
+    groups = each.value.groups
+  }
+}
+
+data "grafana_role" "this" {
+  provider = grafana.stack
+  for_each = toset(flatten([
+    for team in var.teams : team.permissions
+  ]))
+
+  name = each.value
+}
+
+resource "grafana_role_assignment_item" "this" {
+  provider = grafana.stack
+  for_each = { for combination in flatten([
+    for team in var.teams : [
+      for permission in team.permissions : {
+        key = "${team.name}-${permission}",
+        name = team.name,
+        permission = perm
+      }
+    ]
+  ]) :
+    combination.key => combination
+  }
+
+  role_uid = data.grafana_role.this[each.value.permission].uid
+  team_id = grafana_team.this[each.value.name].id
+}

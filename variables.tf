@@ -71,3 +71,13 @@ variable "create_read_only_token" {
   description = "Whether to create a read-only token"
   default     = false
 }
+
+variable "teams" {
+  type = list(object({
+    name = string
+    groups = list(string)
+    permissions = list(string)
+  }))
+  description = "List of teams to create with the groups and permissions"
+  default = []
+}

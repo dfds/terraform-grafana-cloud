@@ -12,6 +12,7 @@
 |------|---------|
 | <a name="provider_aws.route53"></a> [aws.route53](#provider\_aws.route53) | >= 5.34.0 |
 | <a name="provider_grafana.cloud"></a> [grafana.cloud](#provider\_grafana.cloud) | >= 2.9.0 |
+| <a name="provider_grafana.stack"></a> [grafana.stack](#provider\_grafana.stack) | >= 2.9.0 |
 
 ## Modules
 
@@ -38,8 +39,11 @@ No modules.
 | [grafana_cloud_stack.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_stack) | resource |
 | [grafana_cloud_stack_service_account.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_stack_service_account) | resource |
 | [grafana_cloud_stack_service_account_token.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_stack_service_account_token) | resource |
+| [grafana_role_assignment_item.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/role_assignment_item) | resource |
 | [grafana_synthetic_monitoring_installation.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/synthetic_monitoring_installation) | resource |
+| [grafana_team.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/team) | resource |
 | [aws_route53_zone.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
+| [grafana_role.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/data-sources/role) | data source |
 
 ## Inputs
 
@@ -56,6 +60,7 @@ No modules.
 | <a name="input_slug"></a> [slug](#input\_slug) | Subdomain that the Grafana instance will be available at (i.e. setting slug to empty string will make the instance available at `https://.grafana.net` | `string` | `null` | no |
 | <a name="input_stack_description"></a> [stack\_description](#input\_stack\_description) | Description of stack | `string` | `null` | no |
 | <a name="input_stack_name"></a> [stack\_name](#input\_stack\_name) | Name of stack | `string` | `null` | no |
+| <a name="input_teams"></a> [teams](#input\_teams) | List of teams to create with the groups and permissions | <pre>list(object({<br>    name = string<br>    groups = list(string)<br>    permissions = list(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_url"></a> [url](#input\_url) | Custom URL for the Grafana instance. Should not be specified when passing `hosted_zone_name` | `string` | `null` | no |
 
 ## Outputs
