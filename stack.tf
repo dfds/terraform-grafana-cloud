@@ -144,7 +144,7 @@ resource "grafana_role_assignment_item" "this" {
       for permission in team.permissions : {
         key = "${team.name}-${permission}",
         name = team.name,
-        permission = perm
+        permission = permission
       }
     ]
   ]) :
