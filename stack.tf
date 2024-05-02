@@ -129,6 +129,7 @@ resource "grafana_team" "this" {
 }
 
 data "grafana_role" "this" {
+  depends_on = [grafana_cloud_stack_service_account_token.this]
   provider = grafana.stack
   for_each = toset(flatten([
     for team in var.teams : team.permissions
