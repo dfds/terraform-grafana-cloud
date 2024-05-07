@@ -1,7 +1,8 @@
 locals {
-  service_account_name = "terraform-sa"
-  otlp_name            = "${var.route53_record_name}-otlp-access"
-  read_only_name       = "${var.route53_record_name}-read-only-access"
+  service_account_name  = "terraform-sa"
+  otlp_name             = "${var.route53_record_name}-otlp-access"
+  read_only_name        = "${var.route53_record_name}-read-only-access"
+  read_only_multi_stack = "${var.route53_record_name}-read-only-multi-stack-access"
 }
 
 resource "grafana_cloud_stack" "this" {
@@ -118,6 +119,53 @@ resource "aws_ssm_parameter" "read_only" {
   value = grafana_cloud_access_policy_token.read_only[0].token
 }
 
+data "grafana_cloud_stack" "this" {
+  provider = grafana.cloud
+  for_each = toset(var.stacks_for_multi_stack_querying)
+
+  slug = each.value
+}
+
+resource "grafana_cloud_access_policy" "read_only_multi_stack" {
+  count    = length(var.stacks_for_multi_stack_querying) > 0 ? 1 : 0
+  provider = grafana.cloud
+
+  region = grafana_cloud_stack.this.region_slug
+  name   = local.read_only_multi_stack
+  scopes = ["metrics:read", "logs:read", "traces:read"]
+
+  dynamic "realm" {
+    for_each = toset(var.stacks_for_multi_stack_querying)
+    content {
+      type       = "stack"
+      identifier = data.grafana_cloud_stack.this[realm.value].id
+    }
+  }
+
+  realm {
+    type       = "stack"
+    identifier = grafana_cloud_stack.this.id
+  }
+}
+
+resource "grafana_cloud_access_policy_token" "read_only_multi_stack" {
+  count    = length(var.stacks_for_multi_stack_querying) > 0 ? 1 : 0
+  provider = grafana.cloud
+
+  region           = grafana_cloud_stack.this.region_slug
+  access_policy_id = grafana_cloud_access_policy.read_only_multi_stack[0].policy_id
+  name             = local.read_only_multi_stack
+}
+
+resource "aws_ssm_parameter" "read_only_multi_stack" {
+  count    = length(var.stacks_for_multi_stack_querying) > 0 ? 1 : 0
+  provider = aws.route53
+
+  name  = "/grafana-cloud/${var.route53_record_name}/read-only-multi-stack-access-token"
+  type  = "SecureString"
+  value = grafana_cloud_access_policy_token.read_only_multi_stack[0].token
+}
+
 resource "grafana_team" "this" {
   provider = grafana.stack
   for_each = { for team in var.teams : team.name => team }
@@ -130,7 +178,7 @@ resource "grafana_team" "this" {
 
 data "grafana_role" "this" {
   depends_on = [grafana_cloud_stack_service_account_token.this]
-  provider = grafana.stack
+  provider   = grafana.stack
   for_each = toset(flatten([
     for team in var.teams : team.permissions
   ]))
@@ -143,15 +191,15 @@ resource "grafana_role_assignment_item" "this" {
   for_each = { for combination in flatten([
     for team in var.teams : [
       for permission in team.permissions : {
-        key = "${team.name}-${permission}",
-        name = team.name,
+        key        = "${team.name}-${permission}",
+        name       = team.name,
         permission = permission
       }
     ]
-  ]) :
+    ]) :
     combination.key => combination
   }
 
   role_uid = data.grafana_role.this[each.value.permission].uid
-  team_id = grafana_team.this[each.value.name].id
+  team_id  = grafana_team.this[each.value.name].id
 }
