@@ -74,10 +74,16 @@ variable "create_read_only_token" {
 
 variable "teams" {
   type = list(object({
-    name = string
-    groups = list(string)
+    name        = string
+    groups      = list(string)
     permissions = list(string)
   }))
   description = "List of teams to create with the groups and permissions"
-  default = []
+  default     = []
+}
+
+variable "stacks_for_multi_stack_querying" {
+  type        = list(string)
+  description = "List of stacks to create access token for multiple stacks"
+  default     = []
 }
