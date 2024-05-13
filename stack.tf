@@ -141,11 +141,6 @@ resource "grafana_cloud_access_policy" "read_only_multi_stack" {
       identifier = data.grafana_cloud_stack.this[realm.value].id
     }
   }
-
-  realm {
-    type       = "stack"
-    identifier = grafana_cloud_stack.this.id
-  }
 }
 
 resource "grafana_cloud_access_policy_token" "read_only_multi_stack" {
