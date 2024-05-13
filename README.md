@@ -72,5 +72,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_grafana_url"></a> [grafana\_url](#output\_grafana\_url) | n/a |
 | <a name="output_read_only_multi_stack_token"></a> [read\_only\_multi\_stack\_token](#output\_read\_only\_multi\_stack\_token) | n/a |
+| <a name="output_terraform_sa_token"></a> [terraform\_sa\_token](#output\_terraform\_sa\_token) | n/a |
 <!-- END_TF_DOCS -->
