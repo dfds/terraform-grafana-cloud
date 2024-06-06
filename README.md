@@ -74,5 +74,8 @@ No modules.
 |------|-------------|
 | <a name="output_grafana_url"></a> [grafana\_url](#output\_grafana\_url) | n/a |
 | <a name="output_read_only_multi_stack_token"></a> [read\_only\_multi\_stack\_token](#output\_read\_only\_multi\_stack\_token) | n/a |
+| <a name="output_stack_logs_url"></a> [stack\_logs\_url](#output\_stack\_logs\_url) | n/a |
+| <a name="output_stack_prometheus_url"></a> [stack\_prometheus\_url](#output\_stack\_prometheus\_url) | n/a |
+| <a name="output_stack_traces_url"></a> [stack\_traces\_url](#output\_stack\_traces\_url) | n/a |
 | <a name="output_terraform_sa_token"></a> [terraform\_sa\_token](#output\_terraform\_sa\_token) | n/a |
 <!-- END_TF_DOCS -->
