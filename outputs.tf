@@ -11,3 +11,15 @@ output "terraform_sa_token" {
   value     = grafana_cloud_stack_service_account_token.this.key
   sensitive = true
 }
+
+output "stack_traces_url" {
+  value = grafana_cloud_stack.this.traces_url
+}
+
+output "stack_logs_url" {
+  value = grafana_cloud_stack.this.logs_url
+}
+
+output "stack_prometheus_url" {
+  value = grafana_cloud_stack.this.prometheus_url
+}
