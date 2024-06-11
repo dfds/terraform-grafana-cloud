@@ -87,3 +87,9 @@ variable "stacks_for_multi_stack_querying" {
   description = "List of stacks to create access token for multiple stacks"
   default     = []
 }
+
+variable "create_write_only_token" {
+  type        = bool
+  description = "Whether to create a write-only token"
+  default     = false
+}
