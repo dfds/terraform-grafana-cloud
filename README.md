@@ -34,10 +34,12 @@ No modules.
 | [grafana_cloud_access_policy.read_only](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy) | resource |
 | [grafana_cloud_access_policy.read_only_multi_stack](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy) | resource |
 | [grafana_cloud_access_policy.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy) | resource |
+| [grafana_cloud_access_policy.write_only](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy) | resource |
 | [grafana_cloud_access_policy_token.otlp](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy_token) | resource |
 | [grafana_cloud_access_policy_token.read_only](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy_token) | resource |
 | [grafana_cloud_access_policy_token.read_only_multi_stack](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy_token) | resource |
 | [grafana_cloud_access_policy_token.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy_token) | resource |
+| [grafana_cloud_access_policy_token.write_only](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy_token) | resource |
 | [grafana_cloud_plugin_installation.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_plugin_installation) | resource |
 | [grafana_cloud_stack.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_stack) | resource |
 | [grafana_cloud_stack_service_account.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_stack_service_account) | resource |
@@ -54,6 +56,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_create_read_only_token"></a> [create\_read\_only\_token](#input\_create\_read\_only\_token) | Whether to create a read-only token | `bool` | `false` | no |
+| <a name="input_create_write_only_token"></a> [create\_write\_only\_token](#input\_create\_write\_only\_token) | Whether to create a write-only token | `bool` | `false` | no |
 | <a name="input_enable_otlp"></a> [enable\_otlp](#input\_enable\_otlp) | Whether to enable OpenTelemetry | `bool` | `false` | no |
 | <a name="input_grafana_folders"></a> [grafana\_folders](#input\_grafana\_folders) | List of grafana folders to be created | `list(string)` | `[]` | no |
 | <a name="input_hosted_zone_name"></a> [hosted\_zone\_name](#input\_hosted\_zone\_name) | Name of the hosted zone to contain the route53 record. If unspecified no route53 record is created. | `string` | `null` | no |
