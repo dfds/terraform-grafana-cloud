@@ -46,6 +46,7 @@ No modules.
 | [grafana_cloud_stack_service_account.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_stack_service_account) | resource |
 | [grafana_cloud_stack_service_account_token.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_stack_service_account_token) | resource |
 | [grafana_role_assignment_item.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/role_assignment_item) | resource |
+| [grafana_sso_settings.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/sso_settings) | resource |
 | [grafana_synthetic_monitoring_installation.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/synthetic_monitoring_installation) | resource |
 | [grafana_team.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/team) | resource |
 | [aws_route53_zone.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
@@ -59,6 +60,7 @@ No modules.
 | <a name="input_create_read_only_token"></a> [create\_read\_only\_token](#input\_create\_read\_only\_token) | Whether to create a read-only token | `bool` | `false` | no |
 | <a name="input_create_write_only_token"></a> [create\_write\_only\_token](#input\_create\_write\_only\_token) | Whether to create a write-only token | `bool` | `false` | no |
 | <a name="input_enable_otlp"></a> [enable\_otlp](#input\_enable\_otlp) | Whether to enable OpenTelemetry | `bool` | `false` | no |
+| <a name="input_enable_sso_saml"></a> [enable\_sso\_saml](#input\_enable\_sso\_saml) | Enable SSO SAML | `bool` | `false` | no |
 | <a name="input_grafana_folders"></a> [grafana\_folders](#input\_grafana\_folders) | List of grafana folders to be created | `list(string)` | `[]` | no |
 | <a name="input_hosted_zone_name"></a> [hosted\_zone\_name](#input\_hosted\_zone\_name) | Name of the hosted zone to contain the route53 record. If unspecified no route53 record is created. | `string` | `null` | no |
 | <a name="input_install_synthetic_monitoring"></a> [install\_synthetic\_monitoring](#input\_install\_synthetic\_monitoring) | Whether to install synthetic monitoring | `bool` | n/a | yes |
@@ -66,6 +68,13 @@ No modules.
 | <a name="input_region_slug"></a> [region\_slug](#input\_region\_slug) | Region slug to assign to this stack. Changing region will destroy the existing stack and create a new one in the desired region | `string` | `null` | no |
 | <a name="input_route53_record_name"></a> [route53\_record\_name](#input\_route53\_record\_name) | Name of the route53 record | `string` | `null` | no |
 | <a name="input_slug"></a> [slug](#input\_slug) | Subdomain that the Grafana instance will be available at (i.e. setting slug to empty string will make the instance available at `https://.grafana.net` | `string` | `null` | no |
+| <a name="input_sso_saml_assertion_attribute_role"></a> [sso\_saml\_assertion\_attribute\_role](#input\_sso\_saml\_assertion\_attribute\_role) | The attribute to use for role mapping | `string` | `""` | no |
+| <a name="input_sso_saml_certificate"></a> [sso\_saml\_certificate](#input\_sso\_saml\_certificate) | Base64-encoded certificate | `string` | `""` | no |
+| <a name="input_sso_saml_idp_metadata_url"></a> [sso\_saml\_idp\_metadata\_url](#input\_sso\_saml\_idp\_metadata\_url) | The URL to the IDP metadata | `string` | `""` | no |
+| <a name="input_sso_saml_private_key"></a> [sso\_saml\_private\_key](#input\_sso\_saml\_private\_key) | Base64-encoded private key | `string` | `""` | no |
+| <a name="input_sso_saml_role_values_admin"></a> [sso\_saml\_role\_values\_admin](#input\_sso\_saml\_role\_values\_admin) | List of comma- or space-separated roles which will be mapped into the Admin role used in the saml response | `string` | `""` | no |
+| <a name="input_sso_saml_role_values_editor"></a> [sso\_saml\_role\_values\_editor](#input\_sso\_saml\_role\_values\_editor) | List of comma- or space-separated roles which will be mapped into the Viewer role used in the saml response | `string` | `""` | no |
+| <a name="input_sso_saml_role_values_viewer"></a> [sso\_saml\_role\_values\_viewer](#input\_sso\_saml\_role\_values\_viewer) | List of comma- or space-separated roles which will be mapped into the Viewer role used in the saml response | `string` | `""` | no |
 | <a name="input_stack_description"></a> [stack\_description](#input\_stack\_description) | Description of stack | `string` | `null` | no |
 | <a name="input_stack_labels"></a> [stack\_labels](#input\_stack\_labels) | Map of labels to apply to the stack | `map(string)` | `{}` | no |
 | <a name="input_stack_name"></a> [stack\_name](#input\_stack\_name) | Name of stack | `string` | `null` | no |

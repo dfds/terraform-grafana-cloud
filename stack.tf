@@ -231,3 +231,29 @@ resource "aws_ssm_parameter" "write_only" {
   type  = "SecureString"
   value = grafana_cloud_access_policy_token.write_only[0].token
 }
+
+resource "grafana_sso_settings" "this" {
+  count         = var.enable_sso_saml ? 1 : 0
+  provider      = grafana.stack
+  provider_name = "saml"
+
+  saml_settings {
+    name                       = "SAML"
+    allow_sign_up              = true
+    single_logout              = true
+    certificate                = var.sso_saml_certificate
+    private_key                = var.sso_saml_private_key
+    signature_algorithm        = "rsa-sha256"
+    idp_metadata_url           = var.sso_saml_idp_metadata_url
+    assertion_attribute_name   = "displayname"
+    assertion_attribute_login  = "email"
+    assertion_attribute_email  = "email"
+    assertion_attribute_groups = "groups"
+    assertion_attribute_role   = var.sso_saml_assertion_attribute_role
+    role_values_admin          = var.sso_saml_role_values_admin  # "Admin"
+    role_values_editor         = var.sso_saml_role_values_editor # "Editor"
+    role_values_viewer         = var.sso_saml_role_values_viewer # "Viewer"
+    name_id_format             = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    enabled                    = true
+  }
+}
