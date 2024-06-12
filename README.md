@@ -67,6 +67,7 @@ No modules.
 | <a name="input_route53_record_name"></a> [route53\_record\_name](#input\_route53\_record\_name) | Name of the route53 record | `string` | `null` | no |
 | <a name="input_slug"></a> [slug](#input\_slug) | Subdomain that the Grafana instance will be available at (i.e. setting slug to empty string will make the instance available at `https://.grafana.net` | `string` | `null` | no |
 | <a name="input_stack_description"></a> [stack\_description](#input\_stack\_description) | Description of stack | `string` | `null` | no |
+| <a name="input_stack_labels"></a> [stack\_labels](#input\_stack\_labels) | Map of labels to apply to the stack | `map(string)` | `{}` | no |
 | <a name="input_stack_name"></a> [stack\_name](#input\_stack\_name) | Name of stack | `string` | `null` | no |
 | <a name="input_stacks_for_multi_stack_querying"></a> [stacks\_for\_multi\_stack\_querying](#input\_stacks\_for\_multi\_stack\_querying) | List of stacks to create access token for multiple stacks | `list(string)` | `[]` | no |
 | <a name="input_teams"></a> [teams](#input\_teams) | List of teams to create with the groups and permissions | <pre>list(object({<br>    name        = string<br>    groups      = list(string)<br>    permissions = list(string)<br>  }))</pre> | `[]` | no |
