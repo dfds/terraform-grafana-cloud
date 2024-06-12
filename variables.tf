@@ -99,3 +99,49 @@ variable "stack_labels" {
   description = "Map of labels to apply to the stack"
   default     = {}
 }
+
+## SSO SAML Configurations
+variable "enable_sso_saml" {
+  type        = bool
+  default     = false
+  description = "Enable SSO SAML"
+}
+
+variable "sso_saml_certificate" {
+  type        = string
+  description = "Base64-encoded certificate"
+  default     = ""
+}
+variable "sso_saml_private_key" {
+  type        = string
+  description = "Base64-encoded private key"
+  default     = ""
+}
+
+variable "sso_saml_idp_metadata_url" {
+  type        = string
+  description = "The URL to the IDP metadata"
+  default     = ""
+}
+
+variable "sso_saml_assertion_attribute_role" {
+  type        = string
+  default     = ""
+  description = "The attribute to use for role mapping"
+}
+
+variable "sso_saml_role_values_admin" {
+  type        = string
+  default     = ""
+  description = "List of comma- or space-separated roles which will be mapped into the Admin role used in the saml response"
+}
+variable "sso_saml_role_values_viewer" {
+  type        = string
+  default     = ""
+  description = "List of comma- or space-separated roles which will be mapped into the Viewer role used in the saml response"
+}
+variable "sso_saml_role_values_editor" {
+  type        = string
+  default     = ""
+  description = "List of comma- or space-separated roles which will be mapped into the Viewer role used in the saml response"
+}
