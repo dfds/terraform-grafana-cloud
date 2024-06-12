@@ -206,7 +206,7 @@ resource "grafana_cloud_access_policy" "write_only" {
   provider = grafana.cloud
 
   region = grafana_cloud_stack.this.region_slug
-  name   = local.read_only_name
+  name   = local.write_only_name
   scopes = ["metrics:write", "logs:write", "traces:write"]
   realm {
     type       = "stack"
