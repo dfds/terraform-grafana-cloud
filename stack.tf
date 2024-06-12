@@ -14,6 +14,7 @@ resource "grafana_cloud_stack" "this" {
   region_slug = var.region_slug
   description = var.stack_description
   url         = var.hosted_zone_name != null ? "https://${aws_route53_record.this[0].fqdn}" : var.url
+  labels      = var.stack_labels
 }
 
 resource "grafana_cloud_stack_service_account" "this" {

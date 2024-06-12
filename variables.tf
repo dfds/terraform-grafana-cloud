@@ -93,3 +93,9 @@ variable "create_write_only_token" {
   description = "Whether to create a write-only token"
   default     = false
 }
+
+variable "stack_labels" {
+  type        = map(string)
+  description = "Map of labels to apply to the stack"
+  default     = {}
+}
