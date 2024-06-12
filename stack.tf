@@ -1,8 +1,9 @@
 locals {
   service_account_name  = "terraform-sa"
-  otlp_name             = "${var.route53_record_name}-otlp-access"
-  read_only_name        = "${var.route53_record_name}-read-only-access"
-  read_only_multi_stack = "${var.route53_record_name}-read-only-multi-stack-access"
+  otlp_name             = "${var.slug}-otlp-access"
+  read_only_name        = "${var.slug}-read-only-access"
+  read_only_multi_stack = "${var.slug}-read-only-multi-stack-access"
+  write_only_name       = "${var.slug}-write-only-access"
 }
 
 resource "grafana_cloud_stack" "this" {
@@ -13,6 +14,7 @@ resource "grafana_cloud_stack" "this" {
   region_slug = var.region_slug
   description = var.stack_description
   url         = var.hosted_zone_name != null ? "https://${aws_route53_record.this[0].fqdn}" : var.url
+  labels      = var.stack_labels
 }
 
 resource "grafana_cloud_stack_service_account" "this" {
@@ -35,7 +37,7 @@ resource "grafana_cloud_stack_service_account_token" "this" {
 resource "aws_ssm_parameter" "grafana_cloud_stack_service_account_token" {
   provider = aws.route53
 
-  name  = "/grafana-cloud/${var.route53_record_name}/${local.service_account_name}-access-token"
+  name  = "/grafana-cloud/${var.slug}/${local.service_account_name}-access-token"
   type  = "SecureString"
   value = grafana_cloud_stack_service_account_token.this.key
 }
@@ -43,7 +45,7 @@ resource "aws_ssm_parameter" "grafana_cloud_stack_service_account_token" {
 resource "aws_ssm_parameter" "grafana_cloud_stack_url" {
   provider = aws.route53
 
-  name  = "/grafana-cloud/${var.route53_record_name}/stack-url"
+  name  = "/grafana-cloud/${var.slug}/stack-url"
   type  = "String"
   value = grafana_cloud_stack.this.url
 }
@@ -83,7 +85,7 @@ resource "aws_ssm_parameter" "otlp_access_token" {
   count    = var.enable_otlp ? 1 : 0
   provider = aws.route53
 
-  name  = "/grafana-cloud/${var.route53_record_name}/otlp-access-token"
+  name  = "/grafana-cloud/${var.slug}/otlp-access-token"
   type  = "SecureString"
   value = grafana_cloud_access_policy_token.otlp[0].token
 }
@@ -114,7 +116,7 @@ resource "aws_ssm_parameter" "read_only" {
   count    = var.create_read_only_token ? 1 : 0
   provider = aws.route53
 
-  name  = "/grafana-cloud/${var.route53_record_name}/read-only-access-token"
+  name  = "/grafana-cloud/${var.slug}/read-only-access-token"
   type  = "SecureString"
   value = grafana_cloud_access_policy_token.read_only[0].token
 }
@@ -156,7 +158,7 @@ resource "aws_ssm_parameter" "read_only_multi_stack" {
   count    = length(var.stacks_for_multi_stack_querying) > 0 ? 1 : 0
   provider = aws.route53
 
-  name  = "/grafana-cloud/${var.route53_record_name}/read-only-multi-stack-access-token"
+  name  = "/grafana-cloud/${var.slug}/read-only-multi-stack-access-token"
   type  = "SecureString"
   value = grafana_cloud_access_policy_token.read_only_multi_stack[0].token
 }
@@ -197,4 +199,35 @@ resource "grafana_role_assignment_item" "this" {
 
   role_uid = data.grafana_role.this[each.value.permission].uid
   team_id  = grafana_team.this[each.value.name].id
+}
+
+resource "grafana_cloud_access_policy" "write_only" {
+  count    = var.create_write_only_token ? 1 : 0
+  provider = grafana.cloud
+
+  region = grafana_cloud_stack.this.region_slug
+  name   = local.read_only_name
+  scopes = ["metrics:write", "logs:write", "traces:write"]
+  realm {
+    type       = "stack"
+    identifier = grafana_cloud_stack.this.id
+  }
+}
+
+resource "grafana_cloud_access_policy_token" "write_only" {
+  count    = var.create_write_only_token ? 1 : 0
+  provider = grafana.cloud
+
+  region           = grafana_cloud_stack.this.region_slug
+  access_policy_id = grafana_cloud_access_policy.write_only[0].policy_id
+  name             = local.write_only_name
+}
+
+resource "aws_ssm_parameter" "write_only" {
+  count    = var.create_write_only_token ? 1 : 0
+  provider = aws.route53
+
+  name  = "/grafana-cloud/${var.slug}/write-only-access-token"
+  type  = "SecureString"
+  value = grafana_cloud_access_policy_token.write_only[0].token
 }
