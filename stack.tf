@@ -255,5 +255,7 @@ resource "grafana_sso_settings" "this" {
     role_values_viewer         = var.sso_saml_role_values_viewer # "Viewer"
     name_id_format             = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
     enabled                    = true
+    max_issue_delay            = "90s"
+    metadata_valid_duration    = "48h"
   }
 }
