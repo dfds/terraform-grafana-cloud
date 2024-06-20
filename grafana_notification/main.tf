@@ -31,5 +31,13 @@ resource "grafana_notification_policy" "this" {
         value = matcher.value.value
       }
     }
+    policy {
+      repeat_interval = "24h"
+      matcher {
+        label = "repeat"
+        match = "eq"
+        value = "24h"
+      }
+    }
   }
 }
