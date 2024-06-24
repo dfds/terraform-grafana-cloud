@@ -60,12 +60,6 @@ variable "install_synthetic_monitoring" {
   description = "Whether to install synthetic monitoring"
 }
 
-variable "enable_otlp" {
-  type        = bool
-  description = "Whether to enable OpenTelemetry"
-  default     = false
-}
-
 variable "create_read_only_token" {
   type        = bool
   description = "Whether to create a read-only token"
