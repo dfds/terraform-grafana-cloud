@@ -23,3 +23,16 @@ output "stack_logs_url" {
 output "stack_prometheus_url" {
   value = grafana_cloud_stack.this.prometheus_url
 }
+
+output "stack_otlp_url" {
+  value = grafana_cloud_stack.this.otlp_url
+}
+
+output "stack_otlp_id" {
+  value = grafana_cloud_stack.this.id
+}
+
+output "write_only_token" {
+  value     = grafana_cloud_access_policy_token.write_only[0].token
+  sensitive = true
+}

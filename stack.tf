@@ -59,37 +59,6 @@ resource "grafana_cloud_plugin_installation" "this" {
   version    = each.value.version
 }
 
-resource "grafana_cloud_access_policy" "otlp" {
-  count    = var.enable_otlp ? 1 : 0
-  provider = grafana.cloud
-
-  region = grafana_cloud_stack.this.region_slug
-  name   = local.otlp_name
-  scopes = ["metrics:write", "metrics:import", "logs:write", "traces:write", "alerts:write", "rules:write", "profiles:write"]
-  realm {
-    type       = "stack"
-    identifier = grafana_cloud_stack.this.id
-  }
-}
-
-resource "grafana_cloud_access_policy_token" "otlp" {
-  count    = var.enable_otlp ? 1 : 0
-  provider = grafana.cloud
-
-  region           = grafana_cloud_stack.this.region_slug
-  access_policy_id = grafana_cloud_access_policy.otlp[0].policy_id
-  name             = local.otlp_name
-}
-
-resource "aws_ssm_parameter" "otlp_access_token" {
-  count    = var.enable_otlp ? 1 : 0
-  provider = aws.route53
-
-  name  = "/grafana-cloud/${var.slug}/otlp-access-token"
-  type  = "SecureString"
-  value = grafana_cloud_access_policy_token.otlp[0].token
-}
-
 resource "grafana_cloud_access_policy" "read_only" {
   count    = var.create_read_only_token ? 1 : 0
   provider = grafana.cloud
@@ -207,7 +176,7 @@ resource "grafana_cloud_access_policy" "write_only" {
 
   region = grafana_cloud_stack.this.region_slug
   name   = local.write_only_name
-  scopes = ["metrics:write", "logs:write", "traces:write"]
+  scopes = ["metrics:write", "metrics:import", "logs:write", "traces:write", "alerts:write", "rules:write", "profiles:write"]
   realm {
     type       = "stack"
     identifier = grafana_cloud_stack.this.id
