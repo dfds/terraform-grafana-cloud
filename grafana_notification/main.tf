@@ -35,7 +35,7 @@ resource "grafana_notification_policy" "this" {
       repeat_interval = "24h"
       matcher {
         label = "repeat"
-        match = "eq"
+        match = "="
         value = "24h"
       }
     }
