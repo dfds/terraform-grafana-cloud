@@ -32,6 +32,7 @@ resource "grafana_notification_policy" "this" {
       }
     }
     policy {
+      group_by = ["grafana_folder", "alertname"]
       repeat_interval = "24h"
       matcher {
         label = "repeat"
