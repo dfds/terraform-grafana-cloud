@@ -1,0 +1,139 @@
+# Default values for opentelemetry-collector.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+nameOverride: ""
+fullnameOverride: ${name}
+
+# Valid values are "daemonset", "deployment", and "statefulset".
+mode: "deployment"
+
+# Specify which namespace should be used to deploy the resources into
+namespaceOverride: ""
+image:
+  repository: otel/opentelemetry-collector-k8s
+
+command:
+  name: otelcol-k8s
+
+# Base collector configuration.
+# Supports templating. To escape existing instances of {{ }}, use {{` <original content> `}}.
+# For example, {{ REDACTED_EMAIL }} becomes {{` {{ REDACTED_EMAIL }} `}}.
+config:
+  exporters:
+    otlphttp:
+      endpoint: ${otlphttp_endpoint}
+      headers:
+        Authorization: ${stack_token}
+    debug: null
+  processors:
+    batch:
+      send_batch_size: 500
+      send_batch_max_size: 1000
+    filter:
+      error_mode: ignore
+      logs:
+        include:
+          severity_number:
+            min: "INFO"
+            match_undefined: true
+    # If set to null, will be overridden with values based on k8s resource limits
+    # memory_limiter: null
+  receivers:
+    jaeger: null
+    prometheus: null
+    zipkin: null
+  service:
+    pipelines:
+      logs:
+        exporters:
+          - otlphttp
+        processors:
+          # - memory_limiter
+          - filter
+          - batch
+        receivers:
+          - otlp
+      metrics:
+        exporters:
+          # - debug
+          - otlphttp
+        processors:
+          # - memory_limiter
+          - batch
+        receivers:
+          - otlp
+      traces:
+        exporters:
+          # - debug
+          - otlphttp
+        processors:
+          # - memory_limiter
+          - batch
+        receivers:
+          - otlp
+
+# Configuration for ports
+# nodePort is also allowed
+ports:
+  jaeger-compact:
+    enabled: false
+  jaeger-thrift:
+    enabled: false
+  jaeger-grpc:
+    enabled: false
+  zipkin:
+    enabled: false
+
+# Resource limits & requests. Update according to your own use case as these values might be too low for a typical deployment.
+resources:
+  limits:
+    cpu: 1
+    memory: 256Mi
+  requests:
+    cpu: 20m
+    memory: 64Mi
+podAnnotations: {}
+
+podLabels: { owner: "${owner}" }
+
+# Common labels to add to all otel-collector resources. Evaluated as a template.
+additionalLabels: { owner: "${owner}" }
+#  app.kubernetes.io/part-of: my-app
+
+annotations: {}
+
+# liveness probe configuration
+# Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+##
+livenessProbe:
+  # Number of seconds after the container has started before startup, liveness or readiness probes are initiated.
+  # initialDelaySeconds: 1
+  # How often in seconds to perform the probe.
+  # periodSeconds: 10
+  # Number of seconds after which the probe times out.
+  # timeoutSeconds: 1
+  # Minimum consecutive failures for the probe to be considered failed after having succeeded.
+  # failureThreshold: 1
+  # Duration in seconds the pod needs to terminate gracefully upon probe failure.
+  # terminationGracePeriodSeconds: 10
+  httpGet:
+    port: 13133
+    path: /
+
+# readiness probe configuration
+# Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+##
+readinessProbe:
+  # Number of seconds after the container has started before startup, liveness or readiness probes are initiated.
+  # initialDelaySeconds: 1
+  # How often (in seconds) to perform the probe.
+  # periodSeconds: 10
+  # Number of seconds after which the probe times out.
+  # timeoutSeconds: 1
+  # Minimum consecutive successes for the probe to be considered successful after having failed.
+  # successThreshold: 1
+  # Minimum consecutive failures for the probe to be considered failed after having succeeded.
+  # failureThreshold: 1
+  httpGet:
+    port: 13133
+    path: /
