@@ -33,6 +33,6 @@ output "stack_otlp_id" {
 }
 
 output "write_only_token" {
-  value     = grafana_cloud_access_policy_token.write_only[0].token
+  value     = try(grafana_cloud_access_policy_token.write_only[0].token, null)
   sensitive = true
 }
