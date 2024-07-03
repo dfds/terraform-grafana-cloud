@@ -65,7 +65,7 @@ resource "grafana_cloud_access_policy" "read_only" {
 
   region = grafana_cloud_stack.this.region_slug
   name   = local.read_only_name
-  scopes = ["metrics:read", "logs:read", "traces:read"]
+  scopes = ["metrics:read", "logs:read", "traces:read", "profiles:read", "alerts:read", "rules:read"]
   realm {
     type       = "stack"
     identifier = grafana_cloud_stack.this.id
@@ -103,7 +103,7 @@ resource "grafana_cloud_access_policy" "read_only_multi_stack" {
 
   region = grafana_cloud_stack.this.region_slug
   name   = local.read_only_multi_stack
-  scopes = ["metrics:read", "logs:read", "traces:read"]
+  scopes = ["metrics:read", "logs:read", "traces:read", "profiles:read", "alerts:read", "rules:read"]
 
   dynamic "realm" {
     for_each = toset(var.stacks_for_multi_stack_querying)
