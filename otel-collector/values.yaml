@@ -23,7 +23,7 @@ config:
     otlphttp:
       endpoint: ${otlphttp_endpoint}
       headers:
-        Authorization: ${stack_token}
+        Authorization: Basic ${stack_token}
     debug: null
   processors:
     batch:
