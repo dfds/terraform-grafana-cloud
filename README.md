@@ -5,6 +5,7 @@
 |------|---------|
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.34.0 |
 | <a name="requirement_grafana"></a> [grafana](#requirement\_grafana) | >= 2.9.0 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.14.0 |
 
 ## Providers
 
@@ -13,6 +14,7 @@
 | <a name="provider_aws.route53"></a> [aws.route53](#provider\_aws.route53) | >= 5.34.0 |
 | <a name="provider_grafana.cloud"></a> [grafana.cloud](#provider\_grafana.cloud) | >= 2.9.0 |
 | <a name="provider_grafana.stack"></a> [grafana.stack](#provider\_grafana.stack) | >= 2.9.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.14.0 |
 
 ## Modules
 
@@ -46,6 +48,7 @@ No modules.
 | [grafana_sso_settings.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/sso_settings) | resource |
 | [grafana_synthetic_monitoring_installation.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/synthetic_monitoring_installation) | resource |
 | [grafana_team.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/team) | resource |
+| [helm_release.otel_collector](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [aws_route53_zone.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
 | [grafana_cloud_stack.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/data-sources/cloud_stack) | data source |
 | [grafana_role.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/data-sources/role) | data source |
@@ -56,10 +59,13 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_create_read_only_token"></a> [create\_read\_only\_token](#input\_create\_read\_only\_token) | Whether to create a read-only token | `bool` | `false` | no |
 | <a name="input_create_write_only_token"></a> [create\_write\_only\_token](#input\_create\_write\_only\_token) | Whether to create a write-only token | `bool` | `false` | no |
+| <a name="input_deploy_otel_agent_k8s"></a> [deploy\_otel\_agent\_k8s](#input\_deploy\_otel\_agent\_k8s) | Whether to deploy the OpenTelemetry agent into a Kubernetes cluster | `bool` | `false` | no |
 | <a name="input_enable_sso_saml"></a> [enable\_sso\_saml](#input\_enable\_sso\_saml) | Enable SSO SAML | `bool` | `false` | no |
 | <a name="input_grafana_folders"></a> [grafana\_folders](#input\_grafana\_folders) | List of grafana folders to be created | `list(string)` | `[]` | no |
 | <a name="input_hosted_zone_name"></a> [hosted\_zone\_name](#input\_hosted\_zone\_name) | Name of the hosted zone to contain the route53 record. If unspecified no route53 record is created. | `string` | `null` | no |
 | <a name="input_install_synthetic_monitoring"></a> [install\_synthetic\_monitoring](#input\_install\_synthetic\_monitoring) | Whether to install synthetic monitoring | `bool` | n/a | yes |
+| <a name="input_otel_collector_chart_version"></a> [otel\_collector\_chart\_version](#input\_otel\_collector\_chart\_version) | Version of the Open Telemetry collector helm chart to deploy | `string` | `null` | no |
+| <a name="input_otel_collector_namespace"></a> [otel\_collector\_namespace](#input\_otel\_collector\_namespace) | Namespace to deploy the OpenTelemetry agent into | `string` | `"grafana"` | no |
 | <a name="input_plugins"></a> [plugins](#input\_plugins) | List of plugins | <pre>list(object({<br>    plugin  = string<br>    version = string<br>  }))</pre> | `[]` | no |
 | <a name="input_region_slug"></a> [region\_slug](#input\_region\_slug) | Region slug to assign to this stack. Changing region will destroy the existing stack and create a new one in the desired region | `string` | `null` | no |
 | <a name="input_route53_record_name"></a> [route53\_record\_name](#input\_route53\_record\_name) | Name of the route53 record | `string` | `null` | no |
