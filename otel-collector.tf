@@ -1,5 +1,5 @@
 locals {
-    otlp_auth_header = base64encode("${grafana_cloud_stack.this.id}:${grafana_cloud_access_policy_token.write_only[0].token}")
+    otlp_auth_header = var.create_write_only_token ? base64encode("${grafana_cloud_stack.this.id}:${grafana_cloud_access_policy_token.write_only[0].token}") : ""
 }
 
 resource "helm_release" "otel_collector" {
