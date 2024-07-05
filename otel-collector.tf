@@ -4,7 +4,7 @@ locals {
 
 resource "helm_release" "otel_collector" {
     count = var.deploy_otel_agent_k8s ? 1 : 0
-    name = var.slug
+    name = "otel-collector-${var.slug}"
     namespace = var.otel_collector_namespace
     repository = "https://open-telemetry.github.io/opentelemetry-helm-charts"
     chart = "opentelemetry-collector"
@@ -14,7 +14,7 @@ resource "helm_release" "otel_collector" {
         templatefile("${path.module}/otel-collector/values.yaml", {
             otlphttp_endpoint = "${grafana_cloud_stack.this.otlp_url}/otlp"
             stack_token = local.otlp_auth_header
-            name = var.slug
+            name = "otel-${var.slug}"
             owner = "CloudEngineering"
         })
     ]
