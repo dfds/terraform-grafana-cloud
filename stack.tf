@@ -206,7 +206,7 @@ resource "aws_ssm_parameter" "otlp_endpoint" {
   provider = aws.route53
   name     = "/grafana-cloud/${var.slug}/otlp-endpoint"
   type     = "String"
-  value    = grafana_cloud_stack.this.otlp_url
+  value    = "${grafana_cloud_stack.this.otlp_url}/otlp"
 }
 
 resource "aws_ssm_parameter" "otlp_user_name" {
