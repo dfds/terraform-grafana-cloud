@@ -201,6 +201,22 @@ resource "aws_ssm_parameter" "write_only" {
   value = grafana_cloud_access_policy_token.write_only[0].token
 }
 
+resource "aws_ssm_parameter" "otlp_endpoint" {
+  count    = var.create_write_only_token ? 1 : 0
+  provider = aws.route53
+  name     = "/grafana-cloud/${var.slug}/otlp-endpoint"
+  type     = "String"
+  value    = "${grafana_cloud_stack.this.otlp_url}/otlp"
+}
+
+resource "aws_ssm_parameter" "otlp_user_name" {
+  count    = var.create_write_only_token ? 1 : 0
+  provider = aws.route53
+  name     = "/grafana-cloud/${var.slug}/otlp-user-name"
+  type     = "String"
+  value    = grafana_cloud_stack.this.id
+}
+
 resource "grafana_sso_settings" "this" {
   count         = var.enable_sso_saml ? 1 : 0
   provider      = grafana.stack
