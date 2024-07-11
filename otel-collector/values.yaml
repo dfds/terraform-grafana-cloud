@@ -94,10 +94,10 @@ resources:
     memory: 64Mi
 podAnnotations: {}
 
-podLabels: { owner: "${owner}" }
+podLabels: { owner: "${owner}", stack: "${stack}" }
 
 # Common labels to add to all otel-collector resources. Evaluated as a template.
-additionalLabels: { owner: "${owner}" }
+additionalLabels: { owner: "${owner}", stack: "${stack}" }
 #  app.kubernetes.io/part-of: my-app
 
 annotations: {}
