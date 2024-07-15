@@ -96,6 +96,7 @@ No modules.
 | <a name="output_stack_otlp_id"></a> [stack\_otlp\_id](#output\_stack\_otlp\_id) | n/a |
 | <a name="output_stack_otlp_url"></a> [stack\_otlp\_url](#output\_stack\_otlp\_url) | n/a |
 | <a name="output_stack_prometheus_url"></a> [stack\_prometheus\_url](#output\_stack\_prometheus\_url) | n/a |
+| <a name="output_stack_slug"></a> [stack\_slug](#output\_stack\_slug) | n/a |
 | <a name="output_stack_traces_url"></a> [stack\_traces\_url](#output\_stack\_traces\_url) | n/a |
 | <a name="output_terraform_sa_token"></a> [terraform\_sa\_token](#output\_terraform\_sa\_token) | n/a |
 | <a name="output_write_only_token"></a> [write\_only\_token](#output\_write\_only\_token) | n/a |
