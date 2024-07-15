@@ -36,3 +36,7 @@ output "write_only_token" {
   value     = try(grafana_cloud_access_policy_token.write_only[0].token, null)
   sensitive = true
 }
+
+output "stack_slug" {
+  value = grafana_cloud_stack.this.slug
+}
