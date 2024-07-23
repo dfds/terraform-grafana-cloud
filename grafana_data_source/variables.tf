@@ -5,6 +5,7 @@ variable "data_sources" {
     url                      = optional(string)
     basic_auth_enabled       = optional(bool)
     basic_auth_username      = optional(string)
+    is_default               = optional(bool)
     json_data_encoded        = optional(string)
     secure_json_data_encoded = optional(string)
   }))
