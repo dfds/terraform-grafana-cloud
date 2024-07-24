@@ -157,3 +157,8 @@ variable "otel_collector_chart_version" {
   description = "Version of the Open Telemetry collector helm chart to deploy"
   default     = null
 }
+
+variable "onepassword_vault_id" {
+  type        = string
+  description = "The ID of the vault to store the stack information in"
+}
