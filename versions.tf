@@ -11,8 +11,12 @@ terraform {
       configuration_aliases = [grafana.cloud]
     }
     helm = {
-      source = "hashicorp/helm"
+      source  = "hashicorp/helm"
       version = ">= 2.14.0"
+    }
+    onepassword = {
+      source  = "1Password/onepassword"
+      version = ">= 2.1.0"
     }
   }
 }

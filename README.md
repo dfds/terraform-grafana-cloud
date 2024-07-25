@@ -6,6 +6,7 @@
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.34.0 |
 | <a name="requirement_grafana"></a> [grafana](#requirement\_grafana) | >= 2.9.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.14.0 |
+| <a name="requirement_onepassword"></a> [onepassword](#requirement\_onepassword) | >= 2.1.0 |
 
 ## Providers
 
@@ -15,6 +16,7 @@
 | <a name="provider_grafana.cloud"></a> [grafana.cloud](#provider\_grafana.cloud) | >= 2.9.0 |
 | <a name="provider_grafana.stack"></a> [grafana.stack](#provider\_grafana.stack) | >= 2.9.0 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.14.0 |
+| <a name="provider_onepassword"></a> [onepassword](#provider\_onepassword) | >= 2.1.0 |
 
 ## Modules
 
@@ -51,6 +53,7 @@ No modules.
 | [grafana_synthetic_monitoring_installation.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/synthetic_monitoring_installation) | resource |
 | [grafana_team.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/team) | resource |
 | [helm_release.otel_collector](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [onepassword_item.stack_vault_item](https://registry.terraform.io/providers/1Password/onepassword/latest/docs/resources/item) | resource |
 | [aws_route53_zone.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
 | [grafana_cloud_stack.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/data-sources/cloud_stack) | data source |
 | [grafana_role.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/data-sources/role) | data source |
@@ -66,6 +69,7 @@ No modules.
 | <a name="input_grafana_folders"></a> [grafana\_folders](#input\_grafana\_folders) | List of grafana folders to be created | `list(string)` | `[]` | no |
 | <a name="input_hosted_zone_name"></a> [hosted\_zone\_name](#input\_hosted\_zone\_name) | Name of the hosted zone to contain the route53 record. If unspecified no route53 record is created. | `string` | `null` | no |
 | <a name="input_install_synthetic_monitoring"></a> [install\_synthetic\_monitoring](#input\_install\_synthetic\_monitoring) | Whether to install synthetic monitoring | `bool` | n/a | yes |
+| <a name="input_onepassword_vault_id"></a> [onepassword\_vault\_id](#input\_onepassword\_vault\_id) | The ID of the vault to store the stack information in | `string` | n/a | yes |
 | <a name="input_otel_collector_chart_version"></a> [otel\_collector\_chart\_version](#input\_otel\_collector\_chart\_version) | Version of the Open Telemetry collector helm chart to deploy | `string` | `null` | no |
 | <a name="input_otel_collector_namespace"></a> [otel\_collector\_namespace](#input\_otel\_collector\_namespace) | Namespace to deploy the OpenTelemetry agent into | `string` | `"grafana"` | no |
 | <a name="input_plugins"></a> [plugins](#input\_plugins) | List of plugins | <pre>list(object({<br>    plugin  = string<br>    version = string<br>  }))</pre> | `[]` | no |
