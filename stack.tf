@@ -34,21 +34,21 @@ resource "grafana_cloud_stack_service_account_token" "this" {
   service_account_id = grafana_cloud_stack_service_account.this.id
 }
 
-resource "aws_ssm_parameter" "grafana_cloud_stack_service_account_token" {
-  provider = aws.route53
+# resource "aws_ssm_parameter" "grafana_cloud_stack_service_account_token" {
+#   provider = aws.route53
 
-  name  = "/grafana-cloud/${var.slug}/${local.service_account_name}-access-token"
-  type  = "SecureString"
-  value = grafana_cloud_stack_service_account_token.this.key
-}
+#   name  = "/grafana-cloud/${var.slug}/${local.service_account_name}-access-token"
+#   type  = "SecureString"
+#   value = grafana_cloud_stack_service_account_token.this.key
+# }
 
-resource "aws_ssm_parameter" "grafana_cloud_stack_url" {
-  provider = aws.route53
+# resource "aws_ssm_parameter" "grafana_cloud_stack_url" {
+#   provider = aws.route53
 
-  name  = "/grafana-cloud/${var.slug}/stack-url"
-  type  = "String"
-  value = grafana_cloud_stack.this.url
-}
+#   name  = "/grafana-cloud/${var.slug}/stack-url"
+#   type  = "String"
+#   value = grafana_cloud_stack.this.url
+# }
 
 resource "grafana_cloud_plugin_installation" "this" {
   for_each = { for x in var.plugins : x.plugin => x }
@@ -81,14 +81,14 @@ resource "grafana_cloud_access_policy_token" "read_only" {
   name             = local.read_only_name
 }
 
-resource "aws_ssm_parameter" "read_only" {
-  count    = var.create_read_only_token ? 1 : 0
-  provider = aws.route53
+# resource "aws_ssm_parameter" "read_only" {
+#   count    = var.create_read_only_token ? 1 : 0
+#   provider = aws.route53
 
-  name  = "/grafana-cloud/${var.slug}/read-only-access-token"
-  type  = "SecureString"
-  value = grafana_cloud_access_policy_token.read_only[0].token
-}
+#   name  = "/grafana-cloud/${var.slug}/read-only-access-token"
+#   type  = "SecureString"
+#   value = grafana_cloud_access_policy_token.read_only[0].token
+# }
 
 data "grafana_cloud_stack" "this" {
   provider = grafana.cloud
@@ -123,14 +123,14 @@ resource "grafana_cloud_access_policy_token" "read_only_multi_stack" {
   name             = local.read_only_multi_stack
 }
 
-resource "aws_ssm_parameter" "read_only_multi_stack" {
-  count    = length(var.stacks_for_multi_stack_querying) > 0 ? 1 : 0
-  provider = aws.route53
+# resource "aws_ssm_parameter" "read_only_multi_stack" {
+#   count    = length(var.stacks_for_multi_stack_querying) > 0 ? 1 : 0
+#   provider = aws.route53
 
-  name  = "/grafana-cloud/${var.slug}/read-only-multi-stack-access-token"
-  type  = "SecureString"
-  value = grafana_cloud_access_policy_token.read_only_multi_stack[0].token
-}
+#   name  = "/grafana-cloud/${var.slug}/read-only-multi-stack-access-token"
+#   type  = "SecureString"
+#   value = grafana_cloud_access_policy_token.read_only_multi_stack[0].token
+# }
 
 resource "grafana_team" "this" {
   provider = grafana.stack
@@ -192,30 +192,30 @@ resource "grafana_cloud_access_policy_token" "write_only" {
   name             = local.write_only_name
 }
 
-resource "aws_ssm_parameter" "write_only" {
-  count    = var.create_write_only_token ? 1 : 0
-  provider = aws.route53
+# resource "aws_ssm_parameter" "write_only" {
+#   count    = var.create_write_only_token ? 1 : 0
+#   provider = aws.route53
 
-  name  = "/grafana-cloud/${var.slug}/write-only-access-token"
-  type  = "SecureString"
-  value = grafana_cloud_access_policy_token.write_only[0].token
-}
+#   name  = "/grafana-cloud/${var.slug}/write-only-access-token"
+#   type  = "SecureString"
+#   value = grafana_cloud_access_policy_token.write_only[0].token
+# }
 
-resource "aws_ssm_parameter" "otlp_endpoint" {
-  count    = var.create_write_only_token ? 1 : 0
-  provider = aws.route53
-  name     = "/grafana-cloud/${var.slug}/otlp-endpoint"
-  type     = "String"
-  value    = "${grafana_cloud_stack.this.otlp_url}/otlp"
-}
+# resource "aws_ssm_parameter" "otlp_endpoint" {
+#   count    = var.create_write_only_token ? 1 : 0
+#   provider = aws.route53
+#   name     = "/grafana-cloud/${var.slug}/otlp-endpoint"
+#   type     = "String"
+#   value    = "${grafana_cloud_stack.this.otlp_url}/otlp"
+# }
 
-resource "aws_ssm_parameter" "otlp_user_name" {
-  count    = var.create_write_only_token ? 1 : 0
-  provider = aws.route53
-  name     = "/grafana-cloud/${var.slug}/otlp-user-name"
-  type     = "String"
-  value    = grafana_cloud_stack.this.id
-}
+# resource "aws_ssm_parameter" "otlp_user_name" {
+#   count    = var.create_write_only_token ? 1 : 0
+#   provider = aws.route53
+#   name     = "/grafana-cloud/${var.slug}/otlp-user-name"
+#   type     = "String"
+#   value    = grafana_cloud_stack.this.id
+# }
 
 resource "grafana_sso_settings" "this" {
   count         = var.enable_sso_saml ? 1 : 0
