@@ -1,5 +1,6 @@
 locals {
   service_account_name  = "terraform-sa"
+  service_account_editor_name  = "terraform-sa-editor"
   otlp_name             = "${var.slug}-otlp-access"
   read_only_name        = "${var.slug}-read-only-access"
   read_only_multi_stack = "${var.slug}-read-only-multi-stack-access"
@@ -26,6 +27,34 @@ resource "grafana_cloud_stack_service_account" "this" {
   is_disabled = false
 }
 
+resource "grafana_cloud_stack_service_account" "sa_editor" {
+  provider   = grafana.cloud
+  stack_slug = grafana_cloud_stack.this.slug
+
+  name        = local.service_account_editor_name
+  role = "None"
+  is_disabled = false
+}
+
+
+resource "grafana_role_assignment_item" "sa_editor" {
+  provider = grafana.stack
+  for_each = { for combination in flatten([
+    for team in var.teams : [
+      for permission in team.permissions : {
+        key        = "${team.name}-${permission}",
+        name       = team.name,
+        permission = permission
+      }
+    ]
+    ]) :
+    combination.key => combination
+  }
+
+  role_uid = data.grafana_role.this[each.value.permission].uid
+  service_account_id  = grafana_role.grafana_cloud_stack_service_account.sa_editor.id
+}
+
 resource "grafana_cloud_stack_service_account_token" "this" {
   provider   = grafana.cloud
   stack_slug = grafana_cloud_stack.this.slug
@@ -33,6 +62,8 @@ resource "grafana_cloud_stack_service_account_token" "this" {
   name               = "${local.service_account_name}-key"
   service_account_id = grafana_cloud_stack_service_account.this.id
 }
+
+
 
 resource "aws_ssm_parameter" "grafana_cloud_stack_service_account_token" {
   provider = aws.route53
