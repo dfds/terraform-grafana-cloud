@@ -46,8 +46,10 @@ No modules.
 | [grafana_cloud_access_policy_token.write_only](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy_token) | resource |
 | [grafana_cloud_plugin_installation.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_plugin_installation) | resource |
 | [grafana_cloud_stack.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_stack) | resource |
+| [grafana_cloud_stack_service_account.sa_editor](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_stack_service_account) | resource |
 | [grafana_cloud_stack_service_account.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_stack_service_account) | resource |
 | [grafana_cloud_stack_service_account_token.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_stack_service_account_token) | resource |
+| [grafana_role_assignment_item.sa_editor](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/role_assignment_item) | resource |
 | [grafana_role_assignment_item.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/role_assignment_item) | resource |
 | [grafana_sso_settings.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/sso_settings) | resource |
 | [grafana_synthetic_monitoring_installation.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/synthetic_monitoring_installation) | resource |
