@@ -27,6 +27,14 @@ resource "grafana_cloud_stack_service_account" "this" {
   is_disabled = false
 }
 
+resource "grafana_cloud_stack_service_account_token" "this" {
+  provider   = grafana.cloud
+  stack_slug = grafana_cloud_stack.this.slug
+
+  name               = "${local.service_account_name}-key"
+  service_account_id = grafana_cloud_stack_service_account.this.id
+}
+
 resource "grafana_cloud_stack_service_account" "sa_editor" {
   provider   = grafana.cloud
   stack_slug = grafana_cloud_stack.this.slug
@@ -36,33 +44,22 @@ resource "grafana_cloud_stack_service_account" "sa_editor" {
   is_disabled = false
 }
 
-
 resource "grafana_role_assignment_item" "sa_editor" {
   provider = grafana.stack
-  for_each = { for combination in flatten([
-    for team in var.teams : [
-      for permission in team.permissions : {
-        key        = "${team.name}-${permission}",
-        name       = team.name,
-        permission = permission
-      }
-    ]
-    ]) :
-    combination.key => combination
-  }
+  for_each = toset(var.serivce_account_editor_permissions)
 
-  role_uid = data.grafana_role.this[each.value.permission].uid
-  service_account_id  = grafana_role.grafana_cloud_stack_service_account.sa_editor.id
+
+  role_uid = data.grafana_role.this[each.value].uid
+  service_account_id  = trimprefix(grafana_cloud_stack_service_account.sa_editor.id, "${var.slug}:")
 }
 
-resource "grafana_cloud_stack_service_account_token" "this" {
+resource "grafana_cloud_stack_service_account_token" "sa_editor" {
   provider   = grafana.cloud
   stack_slug = grafana_cloud_stack.this.slug
 
-  name               = "${local.service_account_name}-key"
-  service_account_id = grafana_cloud_stack_service_account.this.id
+  name               = "${local.service_account_editor_name}-key"
+  service_account_id = grafana_cloud_stack_service_account.sa_editor.id
 }
-
 
 
 resource "aws_ssm_parameter" "grafana_cloud_stack_service_account_token" {
