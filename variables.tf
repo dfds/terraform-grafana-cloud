@@ -164,6 +164,6 @@ variable "onepassword_vault_id" {
 }
 
 variable "serivce_account_editor_permissions" {
-  type = list(string)
+  type        = list(string)
   description = "List of permissions for the service account for stack editors"
 }
