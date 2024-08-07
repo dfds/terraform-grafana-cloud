@@ -1,10 +1,10 @@
 locals {
-  service_account_name  = "terraform-sa"
-  service_account_editor_name  = "terraform-sa-editor"
-  otlp_name             = "${var.slug}-otlp-access"
-  read_only_name        = "${var.slug}-read-only-access"
-  read_only_multi_stack = "${var.slug}-read-only-multi-stack-access"
-  write_only_name       = "${var.slug}-write-only-access"
+  service_account_name        = "terraform-sa"
+  service_account_editor_name = "sa-editor"
+  otlp_name                   = "${var.slug}-otlp-access"
+  read_only_name              = "${var.slug}-read-only-access"
+  read_only_multi_stack       = "${var.slug}-read-only-multi-stack-access"
+  write_only_name             = "${var.slug}-write-only-access"
 }
 
 resource "grafana_cloud_stack" "this" {
@@ -36,25 +36,17 @@ resource "grafana_cloud_stack_service_account_token" "this" {
 }
 
 resource "grafana_cloud_stack_service_account" "editor" {
-  count = length(var.serivce_account_editor_permissions)
+  count      = length(var.service_account_editor_permissions) > 0 ? 1 : 0
   provider   = grafana.cloud
   stack_slug = grafana_cloud_stack.this.slug
 
   name        = local.service_account_editor_name
-  role = "None"
+  role        = "Viewer"
   is_disabled = false
 }
 
-resource "grafana_role_assignment_item" "editor" {
-  provider = grafana.stack
-  for_each = toset(var.serivce_account_editor_permissions)
-
-  role_uid = data.grafana_role.this[each.value].uid
-  service_account_id  = trimprefix(grafana_cloud_stack_service_account.editor[0].id, "${var.slug}:")
-}
-
 resource "grafana_cloud_stack_service_account_token" "editor" {
-  count = length(var.serivce_account_editor_permissions)
+  count      = length(var.service_account_editor_permissions) > 0 ? 1 : 0
   provider   = grafana.cloud
   stack_slug = grafana_cloud_stack.this.slug
 
@@ -62,6 +54,13 @@ resource "grafana_cloud_stack_service_account_token" "editor" {
   service_account_id = grafana_cloud_stack_service_account.editor[0].id
 }
 
+resource "grafana_role_assignment_item" "editor" {
+  provider = grafana.stack
+  for_each = toset(var.service_account_editor_permissions)
+
+  role_uid           = data.grafana_role.this[each.value].uid
+  service_account_id = trimprefix(grafana_cloud_stack_service_account.editor[0].id, "${var.slug}:")
+}
 
 resource "aws_ssm_parameter" "grafana_cloud_stack_service_account_token" {
   provider = aws.route53
