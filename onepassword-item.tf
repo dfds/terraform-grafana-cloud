@@ -63,7 +63,7 @@ resource "onepassword_item" "stack_vault_item" {
     field {
       label = "username"
       type  = "STRING"
-      value = grafana_cloud_stack.this.id
+      value = grafana_cloud_stack.this.prometheus_user_id
     }
     field {
       label = "password"
@@ -81,7 +81,7 @@ resource "onepassword_item" "stack_vault_item" {
     field {
       label = "username"
       type  = "STRING"
-      value = grafana_cloud_stack.this.id
+      value = grafana_cloud_stack.this.logs_user_id
     }
     field {
       label = "password"
@@ -99,7 +99,7 @@ resource "onepassword_item" "stack_vault_item" {
     field {
       label = "username"
       type  = "STRING"
-      value = grafana_cloud_stack.this.id
+      value = grafana_cloud_stack.this.traces_user_id
     }
     field {
       label = "password"
