@@ -78,7 +78,7 @@ No modules.
 | <a name="input_plugins"></a> [plugins](#input\_plugins) | List of plugins | <pre>list(object({<br>    plugin  = string<br>    version = string<br>  }))</pre> | `[]` | no |
 | <a name="input_region_slug"></a> [region\_slug](#input\_region\_slug) | Region slug to assign to this stack. Changing region will destroy the existing stack and create a new one in the desired region | `string` | `null` | no |
 | <a name="input_route53_record_name"></a> [route53\_record\_name](#input\_route53\_record\_name) | Name of the route53 record | `string` | `null` | no |
-| <a name="input_serivce_account_editor_permissions"></a> [serivce\_account\_editor\_permissions](#input\_serivce\_account\_editor\_permissions) | List of permissions for the service account for stack editors | `list(string)` | n/a | yes |
+| <a name="input_service_account_editor_permissions"></a> [service\_account\_editor\_permissions](#input\_service\_account\_editor\_permissions) | List of permissions for the service account for stack editors | `list(string)` | n/a | yes |
 | <a name="input_slug"></a> [slug](#input\_slug) | Subdomain that the Grafana instance will be available at (i.e. setting slug to empty string will make the instance available at `https://.grafana.net` | `string` | `null` | no |
 | <a name="input_sso_saml_assertion_attribute_role"></a> [sso\_saml\_assertion\_attribute\_role](#input\_sso\_saml\_assertion\_attribute\_role) | The attribute to use for role mapping | `string` | `""` | no |
 | <a name="input_sso_saml_certificate"></a> [sso\_saml\_certificate](#input\_sso\_saml\_certificate) | Base64-encoded certificate | `string` | `""` | no |
