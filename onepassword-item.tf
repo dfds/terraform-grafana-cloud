@@ -8,7 +8,7 @@ resource "onepassword_item" "stack_vault_item" {
 
 
   dynamic "section" {
-    for_each = var.deploy_otel_agent_k8s ? [1]: []
+    for_each = var.deploy_otel_agent_k8s ? [1] : []
     content {
       label = "OpenTelemetry Collector connection details (Kubernetes):"
       field {
@@ -45,12 +45,12 @@ resource "onepassword_item" "stack_vault_item" {
       value = grafana_cloud_stack.this.url
     }
     dynamic "field" {
-      for_each = length(var.serivce_account_editor_permissions) > 0 ? [1]: []
+      for_each = length(var.serivce_account_editor_permissions) > 0 ? [1] : []
       content {
-      label = "grafana-api-token (sa-editor)"
-      type  = "CONCEALED"
-      value  = try(grafana_cloud_stack_service_account_token.editor[0].key, "Not created for this entry!")
-    }
+        label = "grafana-api-token (sa-editor)"
+        type  = "CONCEALED"
+        value = try(grafana_cloud_stack_service_account_token.editor[0].key, "Not created for this entry!")
+      }
     }
   }
   section {
