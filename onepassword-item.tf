@@ -9,9 +9,9 @@ resource "onepassword_item" "stack_vault_item" {
     label = "Stack details:"
 
     field {
-      label = "terraform-sa-access-token"
+      label = "terraform-sa-editor-access-token"
       type  = "CONCEALED"
-      value = grafana_cloud_stack_service_account_token.this.key
+      value = try(grafana_cloud_stack_service_account_token.editor[0].key, "Not created for this entry!")
     }
     field {
       label = "write-only-access-token"
