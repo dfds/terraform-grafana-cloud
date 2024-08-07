@@ -36,7 +36,7 @@ resource "grafana_cloud_stack_service_account_token" "this" {
 }
 
 resource "grafana_cloud_stack_service_account" "editor" {
-  count      = length(var.serivce_account_editor_permissions) > 0 ? 1 : 0
+  count      = length(var.service_account_editor_permissions) > 0 ? 1 : 0
   provider   = grafana.cloud
   stack_slug = grafana_cloud_stack.this.slug
 
@@ -46,7 +46,7 @@ resource "grafana_cloud_stack_service_account" "editor" {
 }
 
 resource "grafana_cloud_stack_service_account_token" "editor" {
-  count      = length(var.serivce_account_editor_permissions) > 0 ? 1 : 0
+  count      = length(var.service_account_editor_permissions) > 0 ? 1 : 0
   provider   = grafana.cloud
   stack_slug = grafana_cloud_stack.this.slug
 
@@ -56,7 +56,7 @@ resource "grafana_cloud_stack_service_account_token" "editor" {
 
 resource "grafana_role_assignment_item" "editor" {
   provider = grafana.stack
-  for_each = toset(var.serivce_account_editor_permissions)
+  for_each = toset(var.service_account_editor_permissions)
 
   role_uid           = data.grafana_role.this[each.value].uid
   service_account_id = trimprefix(grafana_cloud_stack_service_account.editor[0].id, "${var.slug}:")

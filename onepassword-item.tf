@@ -45,7 +45,7 @@ resource "onepassword_item" "stack_vault_item" {
       value = grafana_cloud_stack.this.url
     }
     dynamic "field" {
-      for_each = length(var.serivce_account_editor_permissions) > 0 ? [1] : []
+      for_each = length(var.service_account_editor_permissions) > 0 ? [1] : []
       content {
         label = "grafana-api-token (sa-editor)"
         type  = "CONCEALED"

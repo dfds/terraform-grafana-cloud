@@ -163,7 +163,7 @@ variable "onepassword_vault_id" {
   description = "The ID of the vault to store the stack information in"
 }
 
-variable "serivce_account_editor_permissions" {
+variable "service_account_editor_permissions" {
   type        = list(string)
   description = "List of permissions for the service account for stack editors"
 }
