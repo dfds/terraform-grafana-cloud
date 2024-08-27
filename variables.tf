@@ -146,6 +146,12 @@ variable "deploy_otel_agent_k8s" {
   default     = false
 }
 
+variable "enable_external_access" {
+  type        = bool
+  description = "Whether  to enable external access to the OpenTelemetry agent"
+  default     = false
+}
+
 variable "otel_collector_namespace" {
   type        = string
   description = "Namespace to deploy the OpenTelemetry agent into"
