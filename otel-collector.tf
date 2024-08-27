@@ -41,7 +41,6 @@ resource "kubernetes_manifest" "ingress_route" {
       "namespace" = var.otel_collector_namespace
     }
     "spec" = {
-      "foo" = "bar"
        "entryPoints" = []
         "routes" = [
           {
