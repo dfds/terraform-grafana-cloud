@@ -18,6 +18,7 @@ resource "onepassword_item" "stack_vault_item" {
       }
     }
   }
+
   section {
     label = "OpenTelemetry connection details (Remote):"
     field {
@@ -34,6 +35,14 @@ resource "onepassword_item" "stack_vault_item" {
       label = "otlp-password"
       type  = "CONCEALED"
       value = grafana_cloud_access_policy_token.write_only[0].token
+    }
+    dynamic "field" {
+      for_each = var.enable_collector_for_external_access ? [1] : []
+      content {
+        label = "Collector token (external access)"
+        type  = "CONCEALED"
+        value = local.collecot_token_base64
+      }
     }
   }
 

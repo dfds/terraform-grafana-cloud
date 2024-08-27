@@ -1,5 +1,6 @@
 locals {
   otlp_auth_header = var.create_write_only_token ? base64encode("${grafana_cloud_stack.this.id}:${grafana_cloud_access_policy_token.write_only[0].token}") : ""
+  collecot_token_base64 = var.deploy_otel_agent_k8s && var.enable_collector_for_external_access ? base64encode(random_password.collector_token[0].result) : ""
 }
 
 resource "helm_release" "otel_collector" {
@@ -17,12 +18,21 @@ resource "helm_release" "otel_collector" {
       name              = "otel-${var.route53_record_name}"
       owner             = "CloudEngineering"
       stack             = var.slug
+      collector_token = local.collecot_token_base64
     })
   ]
 }
 
+
+resource "random_password" "collector_token" {
+  count            = var.deploy_otel_agent_k8s && var.enable_collector_for_external_access ? 1 : 0
+  length           = 40
+  special          = true
+  override_special = "!#$%&*()-_=+?"
+}
+
 resource "kubernetes_manifest" "ingress_route" {
-  count      = var.deploy_otel_agent_k8s && var.enable_external_access ? 1 : 0
+  count      = var.deploy_otel_agent_k8s && var.enable_collector_for_external_access ? 1 : 0
   manifest = {
     "apiVersion" = "traefik.containo.us/v1alpha1"
     "kind"       = "IngressRoute"
@@ -57,6 +67,7 @@ resource "kubernetes_manifest" "ingress_route" {
 }
 
 resource "kubernetes_manifest" "middleware" {
+  count      = var.deploy_otel_agent_k8s && var.enable_collector_for_external_access ? 1 : 0
   manifest = {
     "apiVersion" = "traefik.containo.us/v1alpha1"
     "kind"       = "Middleware"
