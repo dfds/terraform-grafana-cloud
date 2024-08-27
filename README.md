@@ -7,6 +7,7 @@
 | <a name="requirement_grafana"></a> [grafana](#requirement\_grafana) | >= 2.9.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.14.0 |
 | <a name="requirement_onepassword"></a> [onepassword](#requirement\_onepassword) | >= 2.1.0 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | 3.6.2 |
 
 ## Providers
 
@@ -18,6 +19,7 @@
 | <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.14.0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
 | <a name="provider_onepassword"></a> [onepassword](#provider\_onepassword) | >= 2.1.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.6.2 |
 
 ## Modules
 
@@ -60,6 +62,7 @@ No modules.
 | [kubernetes_manifest.ingress_route](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [kubernetes_manifest.middleware](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [onepassword_item.stack_vault_item](https://registry.terraform.io/providers/1Password/onepassword/latest/docs/resources/item) | resource |
+| [random_password.collector_token](https://registry.terraform.io/providers/hashicorp/random/3.6.2/docs/resources/password) | resource |
 | [aws_route53_zone.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
 | [grafana_cloud_stack.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/data-sources/cloud_stack) | data source |
 | [grafana_role.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/data-sources/role) | data source |
@@ -71,7 +74,7 @@ No modules.
 | <a name="input_create_read_only_token"></a> [create\_read\_only\_token](#input\_create\_read\_only\_token) | Whether to create a read-only token | `bool` | `false` | no |
 | <a name="input_create_write_only_token"></a> [create\_write\_only\_token](#input\_create\_write\_only\_token) | Whether to create a write-only token | `bool` | `false` | no |
 | <a name="input_deploy_otel_agent_k8s"></a> [deploy\_otel\_agent\_k8s](#input\_deploy\_otel\_agent\_k8s) | Whether to deploy the OpenTelemetry agent into a Kubernetes cluster | `bool` | `false` | no |
-| <a name="input_enable_external_access"></a> [enable\_external\_access](#input\_enable\_external\_access) | Whether  to enable external access to the OpenTelemetry agent | `bool` | `false` | no |
+| <a name="input_enable_collector_for_external_access"></a> [enable\_collector\_for\_external\_access](#input\_enable\_collector\_for\_external\_access) | Whether to enable external access to the OpenTelemetry agent from outside the Kubernetes cluster | `bool` | `false` | no |
 | <a name="input_enable_sso_saml"></a> [enable\_sso\_saml](#input\_enable\_sso\_saml) | Enable SSO SAML | `bool` | `false` | no |
 | <a name="input_grafana_folders"></a> [grafana\_folders](#input\_grafana\_folders) | List of grafana folders to be created | `list(string)` | `[]` | no |
 | <a name="input_hosted_zone_name"></a> [hosted\_zone\_name](#input\_hosted\_zone\_name) | Name of the hosted zone to contain the route53 record. If unspecified no route53 record is created. | `string` | `null` | no |
