@@ -34,7 +34,7 @@ resource "random_password" "collector_token" {
 resource "kubernetes_manifest" "ingress_route" {
   count      = var.deploy_otel_agent_k8s && var.enable_collector_for_external_access ? 1 : 0
   manifest = {
-    "apiVersion" = "traefik.containo.us/v1alpha1"
+    "apiVersion" = "traefik.io/v1alpha1"
     "kind"       = "IngressRoute"
     "metadata" = {
       "name"      = "otel-${var.route53_record_name}"
@@ -68,7 +68,7 @@ resource "kubernetes_manifest" "ingress_route" {
 resource "kubernetes_manifest" "middleware" {
   count      = var.deploy_otel_agent_k8s && var.enable_collector_for_external_access ? 1 : 0
   manifest = {
-    "apiVersion" = "traefik.containo.us/v1alpha1"
+    "apiVersion" = "traefik.io/v1alpha1"
     "kind"       = "Middleware"
     "metadata" = {
       "name"      = "otel-${var.route53_record_name}"
