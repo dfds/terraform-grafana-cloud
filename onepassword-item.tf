@@ -16,6 +16,16 @@ resource "onepassword_item" "stack_vault_item" {
         type  = "STRING"
         value = "otel-${var.route53_record_name}.${var.otel_collector_namespace}.svc.cluster.local:4317"
       }
+      field {
+        label = var.enable_collector_for_external_access ? "Collector ingress URL" : "Collector ingress URL (disabled)"
+        type  = "STRING"
+        value = var.enable_collector_for_external_access ? "otel.dfds.cloud/${var.route53_record_name}" : "PLACEHOLDER"
+      }
+      field {
+        label = var.enable_collector_for_external_access ? "Collector token": "Collector token (disabled)"
+        type  = "CONCEALED"
+        value = random_password.collector_token[0].result
+      }
     }
   }
 
@@ -35,22 +45,6 @@ resource "onepassword_item" "stack_vault_item" {
       label = "otlp-password"
       type  = "CONCEALED"
       value = grafana_cloud_access_policy_token.write_only[0].token
-    }
-    dynamic "field" {
-      for_each = var.enable_collector_for_external_access ? [1] : []
-      content {
-        label = "Collector ingress URL"
-        type  = "STRING"
-        value = "otel.dfds.cloud/${var.route53_record_name}"
-      }
-    }
-    dynamic "field" {
-      for_each = var.enable_collector_for_external_access ? [1] : []
-      content {
-        label = "Collector token (external access)"
-        type  = "CONCEALED"
-        value = local.collecot_token_base64
-      }
     }
   }
 
