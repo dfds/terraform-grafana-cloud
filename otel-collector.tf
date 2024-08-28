@@ -77,7 +77,7 @@ resource "kubernetes_manifest" "middleware" {
     "spec" = {
       "stripPrefix" = {
         "prefixes" = [
-          "/otel-${var.route53_record_name}"
+          "/${var.route53_record_name}"
         ]
       }
     }

@@ -24,7 +24,7 @@ resource "onepassword_item" "stack_vault_item" {
       field {
         label = var.enable_collector_for_external_access ? "Collector token": "Collector token (disabled)"
         type  = "CONCEALED"
-        value = random_password.collector_token[0].result
+        value = local.collecot_token_base64
       }
     }
   }
