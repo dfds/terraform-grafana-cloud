@@ -45,7 +45,7 @@ resource "kubernetes_manifest" "ingress_route" {
         "routes" = [
           {
             "kind" = "Rule"
-            "match" = "Host(`api.hellman.oxygen.dfds.cloud`) && PathPrefix(`/otel-${var.route53_record_name}`)"
+            "match" = "Host(`otel.dfds.cloud`) && PathPrefix(`/${var.route53_record_name}`)"
             "middlewares" = [
               {
                 "name"     = "otel-${var.route53_record_name}"
