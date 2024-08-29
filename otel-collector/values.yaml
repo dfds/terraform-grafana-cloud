@@ -38,13 +38,16 @@ config:
             match_undefined: true
     # If set to null, will be overridden with values based on k8s resource limits
     # memory_limiter: null
+%{ if enable_collector_for_external_access ~}
   extensions:
     bearertokenauth:
       token: ${collector_token}
+%{ endif ~}
   receivers:
     jaeger: null
     prometheus: null
     zipkin: null
+%{ if enable_collector_for_external_access ~}
     otlp:
       protocols:
         grpc:
@@ -53,7 +56,7 @@ config:
           endpoint: $${env:MY_POD_IP}:4318
           auth:
             authenticator: bearertokenauth
-
+%{ endif ~}
   service:
     extensions: [bearertokenauth, health_check]
     pipelines:
@@ -96,12 +99,14 @@ ports:
     enabled: false
   zipkin:
     enabled: false
+%{ if enable_collector_for_external_access ~}
   external:
     enabled: true
     containerPort: 4318
     servicePort: 80
     hostPort: 4318
     protocol: TCP
+%{ endif ~}
 # Resource limits & requests. Update according to your own use case as these values might be too low for a typical deployment.
 resources:
   limits:
