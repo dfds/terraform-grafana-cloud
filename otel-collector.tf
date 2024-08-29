@@ -19,6 +19,7 @@ resource "helm_release" "otel_collector" {
       owner             = "CloudEngineering"
       stack             = var.slug
       collector_token = local.collecot_token_base64
+      enable_collector_for_external_access = var.enable_collector_for_external_access
     })
   ]
 }
