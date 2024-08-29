@@ -58,7 +58,9 @@ config:
             authenticator: bearertokenauth
 %{ endif ~}
   service:
+%{ if enable_collector_for_external_access ~}
     extensions: [bearertokenauth, health_check]
+%{ endif ~}
     pipelines:
       logs:
         exporters:
