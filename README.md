@@ -36,15 +36,18 @@ No modules.
 | [aws_ssm_parameter.otlp_user_name](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_ssm_parameter.read_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_ssm_parameter.read_only_multi_stack](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
+| [aws_ssm_parameter.rules_management](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_ssm_parameter.sm_access_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_ssm_parameter.sm_api_url](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_ssm_parameter.write_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [grafana_cloud_access_policy.read_only](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy) | resource |
 | [grafana_cloud_access_policy.read_only_multi_stack](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy) | resource |
+| [grafana_cloud_access_policy.rules_management](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy) | resource |
 | [grafana_cloud_access_policy.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy) | resource |
 | [grafana_cloud_access_policy.write_only](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy) | resource |
 | [grafana_cloud_access_policy_token.read_only](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy_token) | resource |
 | [grafana_cloud_access_policy_token.read_only_multi_stack](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy_token) | resource |
+| [grafana_cloud_access_policy_token.rules_management](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy_token) | resource |
 | [grafana_cloud_access_policy_token.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy_token) | resource |
 | [grafana_cloud_access_policy_token.write_only](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_access_policy_token) | resource |
 | [grafana_cloud_plugin_installation.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_plugin_installation) | resource |
@@ -72,6 +75,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_create_read_only_token"></a> [create\_read\_only\_token](#input\_create\_read\_only\_token) | Whether to create a read-only token | `bool` | `false` | no |
+| <a name="input_create_rules_management_token"></a> [create\_rules\_management\_token](#input\_create\_rules\_management\_token) | Whether to create a rules management token | `bool` | `false` | no |
 | <a name="input_create_write_only_token"></a> [create\_write\_only\_token](#input\_create\_write\_only\_token) | Whether to create a write-only token | `bool` | `false` | no |
 | <a name="input_deploy_otel_agent_k8s"></a> [deploy\_otel\_agent\_k8s](#input\_deploy\_otel\_agent\_k8s) | Whether to deploy the OpenTelemetry agent into a Kubernetes cluster | `bool` | `false` | no |
 | <a name="input_enable_collector_for_external_access"></a> [enable\_collector\_for\_external\_access](#input\_enable\_collector\_for\_external\_access) | Whether to enable external access to the OpenTelemetry agent from outside the Kubernetes cluster | `bool` | `false` | no |
@@ -82,7 +86,7 @@ No modules.
 | <a name="input_onepassword_vault_id"></a> [onepassword\_vault\_id](#input\_onepassword\_vault\_id) | The ID of the vault to store the stack information in | `string` | n/a | yes |
 | <a name="input_otel_collector_chart_version"></a> [otel\_collector\_chart\_version](#input\_otel\_collector\_chart\_version) | Version of the Open Telemetry collector helm chart to deploy | `string` | `null` | no |
 | <a name="input_otel_collector_namespace"></a> [otel\_collector\_namespace](#input\_otel\_collector\_namespace) | Namespace to deploy the OpenTelemetry agent into | `string` | `"grafana"` | no |
-| <a name="input_plugins"></a> [plugins](#input\_plugins) | List of plugins | <pre>list(object({<br>    plugin  = string<br>    version = string<br>  }))</pre> | `[]` | no |
+| <a name="input_plugins"></a> [plugins](#input\_plugins) | List of plugins | <pre>list(object({<br/>    plugin  = string<br/>    version = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_region_slug"></a> [region\_slug](#input\_region\_slug) | Region slug to assign to this stack. Changing region will destroy the existing stack and create a new one in the desired region | `string` | `null` | no |
 | <a name="input_route53_record_name"></a> [route53\_record\_name](#input\_route53\_record\_name) | Name of the route53 record | `string` | `null` | no |
 | <a name="input_service_account_editor_permissions"></a> [service\_account\_editor\_permissions](#input\_service\_account\_editor\_permissions) | List of permissions for the service account for stack editors | `list(string)` | n/a | yes |
@@ -98,7 +102,7 @@ No modules.
 | <a name="input_stack_labels"></a> [stack\_labels](#input\_stack\_labels) | Map of labels to apply to the stack | `map(string)` | `{}` | no |
 | <a name="input_stack_name"></a> [stack\_name](#input\_stack\_name) | Name of stack | `string` | `null` | no |
 | <a name="input_stacks_for_multi_stack_querying"></a> [stacks\_for\_multi\_stack\_querying](#input\_stacks\_for\_multi\_stack\_querying) | List of stacks to create access token for multiple stacks | `list(string)` | `[]` | no |
-| <a name="input_teams"></a> [teams](#input\_teams) | List of teams to create with the groups and permissions | <pre>list(object({<br>    name        = string<br>    groups      = list(string)<br>    permissions = list(string)<br>  }))</pre> | `[]` | no |
+| <a name="input_teams"></a> [teams](#input\_teams) | List of teams to create with the groups and permissions | <pre>list(object({<br/>    name        = string<br/>    groups      = list(string)<br/>    permissions = list(string)<br/>  }))</pre> | `[]` | no |
 | <a name="input_url"></a> [url](#input\_url) | Custom URL for the Grafana instance. Should not be specified when passing `hosted_zone_name` | `string` | `null` | no |
 
 ## Outputs
