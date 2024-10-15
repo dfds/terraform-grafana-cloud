@@ -5,7 +5,7 @@ locals {
   read_only_name              = "${var.slug}-read-only-access"
   read_only_multi_stack       = "${var.slug}-read-only-multi-stack-access"
   write_only_name             = "${var.slug}-write-only-access"
-  rules_management_name       = "${var.slug}-rules-management"
+  rules_management_name       = "${var.slug}-rules-management-access"
 }
 
 resource "grafana_cloud_stack" "this" {
