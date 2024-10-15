@@ -5,6 +5,7 @@ locals {
   read_only_name              = "${var.slug}-read-only-access"
   read_only_multi_stack       = "${var.slug}-read-only-multi-stack-access"
   write_only_name             = "${var.slug}-write-only-access"
+  rules_management_name       = "${var.slug}-rules-management"
 }
 
 resource "grafana_cloud_stack" "this" {
@@ -227,6 +228,38 @@ resource "aws_ssm_parameter" "write_only" {
   name  = "/grafana-cloud/${var.slug}/write-only-access-token"
   type  = "SecureString"
   value = grafana_cloud_access_policy_token.write_only[0].token
+}
+
+resource "grafana_cloud_access_policy" "rules_management" {
+  count    = var.create_rules_management_token ? 1 : 0
+  provider = grafana.cloud
+
+  region = grafana_cloud_stack.this.region_slug
+  name   = local.rules_management_name
+  scopes = ["rules:read", "rules:write", "adaptive-metrics-rules:read", "adaptive-metrics-rules:write", "adaptive-metrics-rules:delete"]
+  realm {
+    type       = "stack"
+    identifier = grafana_cloud_stack.this.id
+  }
+}
+
+resource "grafana_cloud_access_policy_token" "rules_management" {
+  count    = var.create_rules_management_token ? 1 : 0
+  provider = grafana.cloud
+
+  region           = grafana_cloud_stack.this.region_slug
+  access_policy_id = grafana_cloud_access_policy.rules_management[0].policy_id
+  name             = local.rules_management_name
+}
+
+# trunk-ignore(checkov/CKV_AWS_337)
+resource "aws_ssm_parameter" "rules_management" {
+  count    = var.create_rules_management_token ? 1 : 0
+  provider = aws.route53
+
+  name  = "/grafana-cloud/${var.slug}/rules-management-access-token"
+  type  = "SecureString"
+  value = grafana_cloud_access_policy_token.rules_management[0].token
 }
 
 resource "aws_ssm_parameter" "otlp_endpoint" {

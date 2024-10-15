@@ -88,6 +88,12 @@ variable "create_write_only_token" {
   default     = false
 }
 
+variable "create_rules_management_token" {
+  type        = bool
+  description = "Whether to create a rules management token"
+  default     = false
+}
+
 variable "stack_labels" {
   type        = map(string)
   description = "Map of labels to apply to the stack"
