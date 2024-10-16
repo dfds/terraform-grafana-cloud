@@ -262,6 +262,24 @@ resource "aws_ssm_parameter" "rules_management" {
   value = grafana_cloud_access_policy_token.rules_management[0].token
 }
 
+# trunk-ignore(checkov/CKV2_AWS_34)
+resource "aws_ssm_parameter" "prometheus_url" {
+  provider = aws.route53
+
+  name  = "/grafana-cloud/${var.slug}/prometheus-url"
+  type  = "String"
+  value = grafana_cloud_stack.this.prometheus_url
+}
+
+# trunk-ignore(checkov/CKV_AWS_337)
+resource "aws_ssm_parameter" "prometheus_user_id" {
+  provider = aws.route53
+
+  name  = "/grafana-cloud/${var.slug}/prometheus-user-id"
+  type  = "SecureString"
+  value = grafana_cloud_stack.this.prometheus_user_id
+}
+
 resource "aws_ssm_parameter" "otlp_endpoint" {
   count    = var.create_write_only_token ? 1 : 0
   provider = aws.route53
