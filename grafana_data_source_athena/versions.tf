@@ -6,5 +6,9 @@ terraform {
       source  = "grafana/grafana"
       version = ">= 2.9.0"
     }
+    http = {
+      source  = "hashicorp/http"
+      version = ">= 2.9.0"
+    }
   }
 }
