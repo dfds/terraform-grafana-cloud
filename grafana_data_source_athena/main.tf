@@ -15,3 +15,22 @@ resource "grafana_data_source" "athena" {
     workgroup      = each.value.workgroup
   })
 }
+
+# trunk-ignore(tflint/terraform_unused_declarations)
+data "http" "enable_caching" {
+  for_each = var.enable_caching && var.grafana_url != "" && var.bearer_token != "" ? grafana_data_source.athena : {}
+  url      = "${var.grafana_url}/api/datasources/${grafana_data_source.athena[each.key].uid}/cache/enable"
+  method   = "POST"
+
+  request_headers = {
+    Accept        = "application/json"
+    Authorization = "Bearer ${var.bearer_token}"
+  }
+
+  lifecycle {
+    postcondition {
+      condition     = contains([200, 201, 204], self.status_code)
+      error_message = "Status code invalid for enabling caching for Athena data source"
+    }
+  }
+}
