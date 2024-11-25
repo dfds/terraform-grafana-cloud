@@ -198,11 +198,11 @@ variable "sso_azuread_client_secret" {
 }
 variable "sso_azuread_auth_url" {
   type        = string
-  description = "OAuth2 authorization URL for SSO Azure AD"
+  description = "OAuth 2.0 authorization endpoint (v2) for SSO Azure AD"
   default = ""
 }
 variable "sso_azuread_token_url" {
   type        = string
-  description = "OAuth2 token URL for SSO Azure AD"
+  description = "OAuth 2.0 token endpoint (v2) for SSO Azure AD"
   default = ""
 }
