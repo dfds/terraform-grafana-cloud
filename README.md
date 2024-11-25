@@ -96,10 +96,10 @@ No modules.
 | <a name="input_route53_record_name"></a> [route53\_record\_name](#input\_route53\_record\_name) | Name of the route53 record | `string` | `null` | no |
 | <a name="input_service_account_editor_permissions"></a> [service\_account\_editor\_permissions](#input\_service\_account\_editor\_permissions) | List of permissions for the service account for stack editors | `list(string)` | n/a | yes |
 | <a name="input_slug"></a> [slug](#input\_slug) | Subdomain that the Grafana instance will be available at (i.e. setting slug to empty string will make the instance available at `https://.grafana.net` | `string` | `null` | no |
-| <a name="input_sso_azuread_auth_url"></a> [sso\_azuread\_auth\_url](#input\_sso\_azuread\_auth\_url) | OAuth2 authorization URL for SSO Azure AD | `string` | `""` | no |
+| <a name="input_sso_azuread_auth_url"></a> [sso\_azuread\_auth\_url](#input\_sso\_azuread\_auth\_url) | OAuth 2.0 authorization endpoint (v2) for SSO Azure AD | `string` | `""` | no |
 | <a name="input_sso_azuread_client_id"></a> [sso\_azuread\_client\_id](#input\_sso\_azuread\_client\_id) | Application ID of the Azure AD application | `string` | `""` | no |
 | <a name="input_sso_azuread_client_secret"></a> [sso\_azuread\_client\_secret](#input\_sso\_azuread\_client\_secret) | Client secret of the Azure AD application | `string` | `""` | no |
-| <a name="input_sso_azuread_token_url"></a> [sso\_azuread\_token\_url](#input\_sso\_azuread\_token\_url) | OAuth2 token URL for SSO Azure AD | `string` | `""` | no |
+| <a name="input_sso_azuread_token_url"></a> [sso\_azuread\_token\_url](#input\_sso\_azuread\_token\_url) | OAuth 2.0 token endpoint (v2) for SSO Azure AD | `string` | `""` | no |
 | <a name="input_sso_saml_assertion_attribute_role"></a> [sso\_saml\_assertion\_attribute\_role](#input\_sso\_saml\_assertion\_attribute\_role) | The attribute to use for role mapping | `string` | `""` | no |
 | <a name="input_sso_saml_certificate"></a> [sso\_saml\_certificate](#input\_sso\_saml\_certificate) | Base64-encoded certificate | `string` | `""` | no |
 | <a name="input_sso_saml_idp_metadata_url"></a> [sso\_saml\_idp\_metadata\_url](#input\_sso\_saml\_idp\_metadata\_url) | The URL to the IDP metadata | `string` | `""` | no |
