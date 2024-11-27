@@ -14,7 +14,6 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_aws.route53"></a> [aws.route53](#provider\_aws.route53) | >= 5.34.0 |
-| <a name="provider_grafana"></a> [grafana](#provider\_grafana) | >= 3.13.2 |
 | <a name="provider_grafana.cloud"></a> [grafana.cloud](#provider\_grafana.cloud) | >= 3.13.2 |
 | <a name="provider_grafana.stack"></a> [grafana.stack](#provider\_grafana.stack) | >= 3.13.2 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.14.0 |
