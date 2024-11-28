@@ -179,3 +179,30 @@ variable "service_account_editor_permissions" {
   type        = list(string)
   description = "List of permissions for the service account for stack editors"
 }
+
+variable "enable_sso_azuread" {
+  type        = bool
+  default     = false
+  description = "Enable SSO Azure AD"
+}
+
+variable "sso_azuread_client_id" {
+  type        = string
+  description = "Application ID of the Azure AD application"
+  default = ""
+}
+variable "sso_azuread_client_secret" {
+  type        = string
+  description = "Client secret of the Azure AD application"
+  default = ""
+}
+variable "sso_azuread_auth_url" {
+  type        = string
+  description = "OAuth 2.0 authorization endpoint (v2) for SSO Azure AD"
+  default = ""
+}
+variable "sso_azuread_token_url" {
+  type        = string
+  description = "OAuth 2.0 token endpoint (v2) for SSO Azure AD"
+  default = ""
+}

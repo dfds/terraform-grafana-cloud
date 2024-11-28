@@ -7,7 +7,7 @@ terraform {
     }
     grafana = {
       source                = "grafana/grafana"
-      version               = ">= 2.9.0"
+      version               = ">= 3.13.2"
       configuration_aliases = [grafana.cloud]
     }
     helm = {

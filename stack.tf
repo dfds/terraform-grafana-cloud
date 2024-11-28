@@ -323,3 +323,25 @@ resource "grafana_sso_settings" "this" {
     metadata_valid_duration    = "48h"
   }
 }
+
+# Configure SSO using generic OAuth2
+resource "grafana_sso_settings" "azuread" {
+  provider      = grafana.stack
+  count         = var.enable_sso_azuread ? 1 : 0
+  provider_name = "azuread"
+  oauth2_settings {
+    name                       = "Microsoft"
+    auth_url                   = var.sso_azuread_auth_url
+    token_url                  = var.sso_azuread_token_url
+    client_id                  = var.sso_azuread_client_id
+    client_secret              = var.sso_azuread_client_secret
+    allow_sign_up              = true
+    auto_login                 = false
+    scopes                     = "openid email profile"
+    role_attribute_strict      = true
+    allow_assign_grafana_admin = false
+    skip_org_role_sync         = false
+    use_pkce                   = true
+    use_refresh_token          = true
+  }
+}
