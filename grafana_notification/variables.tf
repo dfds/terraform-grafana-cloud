@@ -63,3 +63,29 @@ variable "policy_matcher" {
   }]
   description = "Matcher for the notification policy."
 }
+
+/* Example syntax
+additional_policies = [
+  {
+    contact_point = "Cloud Engineering - SSU Slack"
+    group_by = ["grafana_folder"]
+    repeat_interval = "24h"
+    matcher = [
+      {
+        label = "grafana_folder"
+        match = "="
+        value = "Cloud Engineering - SSU"
+      }]
+  }
+]
+*/
+variable "additional_policies" {
+  type = list(object({
+    contact_point = string
+    group_by = list(string)
+    matcher = list(map(string))
+    repeat_interval = string
+  }))
+  default = []
+  description = "Pass extra policies as is"
+}
