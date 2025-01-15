@@ -41,4 +41,21 @@ resource "grafana_notification_policy" "this" {
       }
     }
   }
+
+  dynamic "policy" {
+    for_each = var.additional_policies
+    content {
+      contact_point = policy.value.contact_point
+      group_by = policy.value.group_by
+      dynamic "matcher" {
+        for_each = policy.value.matcher
+        content {
+          label = matcher.value.label
+          match = matcher.value.match
+          value = matcher.value.value
+        }
+      }
+      repeat_interval = policy.value.repeat_interval
+    }
+  }
 }
