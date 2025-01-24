@@ -110,6 +110,7 @@ No modules.
 | <a name="input_stack_labels"></a> [stack\_labels](#input\_stack\_labels) | Map of labels to apply to the stack | `map(string)` | `{}` | no |
 | <a name="input_stack_name"></a> [stack\_name](#input\_stack\_name) | Name of stack | `string` | `null` | no |
 | <a name="input_stacks_for_multi_stack_querying"></a> [stacks\_for\_multi\_stack\_querying](#input\_stacks\_for\_multi\_stack\_querying) | List of stacks to create access token for multiple stacks | `list(string)` | `[]` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to apply to all the resources deployed by the module | `map(string)` | `{}` | no |
 | <a name="input_teams"></a> [teams](#input\_teams) | List of teams to create with the groups and permissions | <pre>list(object({<br/>    name        = string<br/>    groups      = list(string)<br/>    permissions = list(string)<br/>  }))</pre> | `[]` | no |
 | <a name="input_url"></a> [url](#input\_url) | Custom URL for the Grafana instance. Should not be specified when passing `hosted_zone_name` | `string` | `null` | no |
 
