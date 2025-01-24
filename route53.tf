@@ -3,8 +3,6 @@ data "aws_route53_zone" "this" {
   count    = var.hosted_zone_name != null ? 1 : 0
 
   name = var.hosted_zone_name
-
-  tags = var.tags
 }
 
 resource "aws_route53_record" "this" {
