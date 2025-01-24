@@ -189,20 +189,26 @@ variable "enable_sso_azuread" {
 variable "sso_azuread_client_id" {
   type        = string
   description = "Application ID of the Azure AD application"
-  default = ""
+  default     = ""
 }
 variable "sso_azuread_client_secret" {
   type        = string
   description = "Client secret of the Azure AD application"
-  default = ""
+  default     = ""
 }
 variable "sso_azuread_auth_url" {
   type        = string
   description = "OAuth 2.0 authorization endpoint (v2) for SSO Azure AD"
-  default = ""
+  default     = ""
 }
 variable "sso_azuread_token_url" {
   type        = string
   description = "OAuth 2.0 token endpoint (v2) for SSO Azure AD"
-  default = ""
+  default     = ""
+}
+
+variable "tags" {
+  type        = map(string)
+  description = "A map of tags to apply to all the resources deployed by the module"
+  default     = {}
 }
