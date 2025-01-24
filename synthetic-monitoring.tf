@@ -39,6 +39,8 @@ resource "aws_ssm_parameter" "sm_access_token" {
   name  = "/grafana-cloud/${var.route53_record_name}/sm-access-token"
   type  = "SecureString"
   value = grafana_synthetic_monitoring_installation.this[0].sm_access_token
+
+  tags = var.tags
 }
 
 resource "aws_ssm_parameter" "sm_api_url" {
@@ -48,4 +50,6 @@ resource "aws_ssm_parameter" "sm_api_url" {
   name  = "/grafana-cloud/${var.route53_record_name}/sm-api-url"
   type  = "String"
   value = grafana_synthetic_monitoring_installation.this[0].stack_sm_api_url
+
+  tags = var.tags
 }

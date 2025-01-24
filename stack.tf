@@ -159,6 +159,8 @@ resource "aws_ssm_parameter" "read_only_multi_stack" {
   name  = "/grafana-cloud/${var.slug}/read-only-multi-stack-access-token"
   type  = "SecureString"
   value = grafana_cloud_access_policy_token.read_only_multi_stack[0].token
+
+  tags = var.tags
 }
 
 resource "grafana_team" "this" {
@@ -228,6 +230,8 @@ resource "aws_ssm_parameter" "write_only" {
   name  = "/grafana-cloud/${var.slug}/write-only-access-token"
   type  = "SecureString"
   value = grafana_cloud_access_policy_token.write_only[0].token
+
+  tags = var.tags
 }
 
 resource "grafana_cloud_access_policy" "rules_management" {
@@ -260,6 +264,8 @@ resource "aws_ssm_parameter" "rules_management" {
   name  = "/grafana-cloud/${var.slug}/rules-management-access-token"
   type  = "SecureString"
   value = grafana_cloud_access_policy_token.rules_management[0].token
+
+  tags = var.tags
 }
 
 # trunk-ignore(checkov/CKV2_AWS_34)
@@ -269,6 +275,8 @@ resource "aws_ssm_parameter" "prometheus_url" {
   name  = "/grafana-cloud/${var.slug}/prometheus-url"
   type  = "String"
   value = grafana_cloud_stack.this.prometheus_url
+
+  tags = var.tags
 }
 
 # trunk-ignore(checkov/CKV_AWS_337)
@@ -278,6 +286,8 @@ resource "aws_ssm_parameter" "prometheus_user_id" {
   name  = "/grafana-cloud/${var.slug}/prometheus-user-id"
   type  = "SecureString"
   value = grafana_cloud_stack.this.prometheus_user_id
+
+  tags = var.tags
 }
 
 resource "aws_ssm_parameter" "otlp_endpoint" {
@@ -286,6 +296,8 @@ resource "aws_ssm_parameter" "otlp_endpoint" {
   name     = "/grafana-cloud/${var.slug}/otlp-endpoint"
   type     = "String"
   value    = "${grafana_cloud_stack.this.otlp_url}/otlp"
+
+  tags = var.tags
 }
 
 resource "aws_ssm_parameter" "otlp_user_name" {
@@ -294,6 +306,8 @@ resource "aws_ssm_parameter" "otlp_user_name" {
   name     = "/grafana-cloud/${var.slug}/otlp-user-name"
   type     = "String"
   value    = grafana_cloud_stack.this.id
+
+  tags = var.tags
 }
 
 resource "grafana_sso_settings" "this" {
