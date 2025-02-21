@@ -49,7 +49,7 @@ resource "onepassword_item" "stack_vault_item" {
     field {
       label = "otlp-token (read-only)"
       type  = "CONCEALED"
-      value = grafana_cloud_access_policy_token.read_only[0].token
+      value = try(grafana_cloud_access_policy_token.read_only[0].token, "Not created for this entry!")
     }
   }
 
@@ -91,7 +91,7 @@ resource "onepassword_item" "stack_vault_item" {
         content {
         label = "password (read-only)"
         type  = "CONCEALED"
-        value = grafana_cloud_access_policy_token.read_only[0].token
+        value = try(grafana_cloud_access_policy_token.read_only[0].token, "Not created for this entry!")
       }
     }
   }
@@ -117,7 +117,7 @@ resource "onepassword_item" "stack_vault_item" {
         content {
         label = "password (read-only)"
         type  = "CONCEALED"
-        value = grafana_cloud_access_policy_token.read_only[0].token
+        value = try(grafana_cloud_access_policy_token.read_only[0].token, "Not created for this entry!")
       }
     }
   }
@@ -143,7 +143,7 @@ resource "onepassword_item" "stack_vault_item" {
         content {
         label = "password (read-only)"
         type  = "CONCEALED"
-        value = grafana_cloud_access_policy_token.read_only[0].token
+        value = try(grafana_cloud_access_policy_token.read_only[0].token, "Not created for this entry!")
       }
     }
   }
