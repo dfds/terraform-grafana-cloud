@@ -86,10 +86,13 @@ resource "onepassword_item" "stack_vault_item" {
       type  = "CONCEALED"
       value = grafana_cloud_access_policy_token.write_only[0].token
     }
-    field {
-      label = "password (read-only)"
-      type  = "CONCEALED"
-      value = grafana_cloud_access_policy_token.read_only[0].token
+    dynamic "field" {
+        for_each = length(var.create_read_only_token) > 0 ? [1] : []
+        content {
+        label = "password (read-only)"
+        type  = "CONCEALED"
+        value = grafana_cloud_access_policy_token.read_only[0].token
+      }
     }
   }
   section {
@@ -109,10 +112,13 @@ resource "onepassword_item" "stack_vault_item" {
       type  = "CONCEALED"
       value = grafana_cloud_access_policy_token.write_only[0].token
     }
-    field {
-      label = "password (read-only)"
-      type  = "CONCEALED"
-      value = grafana_cloud_access_policy_token.read_only[0].token
+    dynamic "field" {
+        for_each = length(var.create_read_only_token) > 0 ? [1] : []
+        content {
+        label = "password (read-only)"
+        type  = "CONCEALED"
+        value = grafana_cloud_access_policy_token.read_only[0].token
+      }
     }
   }
   section {
@@ -132,10 +138,13 @@ resource "onepassword_item" "stack_vault_item" {
       type  = "CONCEALED"
       value = grafana_cloud_access_policy_token.write_only[0].token
     }
-    field {
-      label = "password (read-only)"
-      type  = "CONCEALED"
-      value = grafana_cloud_access_policy_token.read_only[0].token
+    dynamic "field" {
+        for_each = length(var.create_read_only_token) > 0 ? [1] : []
+        content {
+        label = "password (read-only)"
+        type  = "CONCEALED"
+        value = grafana_cloud_access_policy_token.read_only[0].token
+      }
     }
   }
 }
