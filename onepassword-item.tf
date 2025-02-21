@@ -87,7 +87,7 @@ resource "onepassword_item" "stack_vault_item" {
       value = grafana_cloud_access_policy_token.write_only[0].token
     }
     dynamic "field" {
-        for_each = length(var.create_read_only_token) > 0 ? [1] : []
+        for_each = var.create_read_only_token ? [1] : []
         content {
         label = "password (read-only)"
         type  = "CONCEALED"
@@ -113,7 +113,7 @@ resource "onepassword_item" "stack_vault_item" {
       value = grafana_cloud_access_policy_token.write_only[0].token
     }
     dynamic "field" {
-        for_each = length(var.create_read_only_token) > 0 ? [1] : []
+        for_each = var.create_read_only_token ? [1] : []
         content {
         label = "password (read-only)"
         type  = "CONCEALED"
@@ -139,7 +139,7 @@ resource "onepassword_item" "stack_vault_item" {
       value = grafana_cloud_access_policy_token.write_only[0].token
     }
     dynamic "field" {
-        for_each = length(var.create_read_only_token) > 0 ? [1] : []
+        for_each = var.create_read_only_token ? [1] : []
         content {
         label = "password (read-only)"
         type  = "CONCEALED"
