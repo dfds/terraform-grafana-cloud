@@ -42,9 +42,14 @@ resource "onepassword_item" "stack_vault_item" {
       value = grafana_cloud_stack.this.id
     }
     field {
-      label = "otlp-password"
+      label = "otlp-password (write-only)"
       type  = "CONCEALED"
       value = grafana_cloud_access_policy_token.write_only[0].token
+    }
+    field {
+      label = "otlp-token (read-only)"
+      type  = "CONCEALED"
+      value = try(grafana_cloud_access_policy_token.read_only[0].token, "Not created for this entry!")
     }
   }
 
@@ -77,9 +82,17 @@ resource "onepassword_item" "stack_vault_item" {
       value = grafana_cloud_stack.this.prometheus_user_id
     }
     field {
-      label = "password"
+      label = "password (write-only)"
       type  = "CONCEALED"
       value = grafana_cloud_access_policy_token.write_only[0].token
+    }
+    dynamic "field" {
+        for_each = var.create_read_only_token ? [1] : []
+        content {
+        label = "password (read-only)"
+        type  = "CONCEALED"
+        value = try(grafana_cloud_access_policy_token.read_only[0].token, "Not created for this entry!")
+      }
     }
   }
   section {
@@ -95,9 +108,17 @@ resource "onepassword_item" "stack_vault_item" {
       value = grafana_cloud_stack.this.logs_user_id
     }
     field {
-      label = "password"
+      label = "password (write-only)"
       type  = "CONCEALED"
       value = grafana_cloud_access_policy_token.write_only[0].token
+    }
+    dynamic "field" {
+        for_each = var.create_read_only_token ? [1] : []
+        content {
+        label = "password (read-only)"
+        type  = "CONCEALED"
+        value = try(grafana_cloud_access_policy_token.read_only[0].token, "Not created for this entry!")
+      }
     }
   }
   section {
@@ -113,9 +134,17 @@ resource "onepassword_item" "stack_vault_item" {
       value = grafana_cloud_stack.this.traces_user_id
     }
     field {
-      label = "password"
+      label = "password (write-only)"
       type  = "CONCEALED"
       value = grafana_cloud_access_policy_token.write_only[0].token
+    }
+    dynamic "field" {
+        for_each = var.create_read_only_token ? [1] : []
+        content {
+        label = "password (read-only)"
+        type  = "CONCEALED"
+        value = try(grafana_cloud_access_policy_token.read_only[0].token, "Not created for this entry!")
+      }
     }
   }
 }
