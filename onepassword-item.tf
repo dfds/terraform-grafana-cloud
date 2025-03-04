@@ -82,7 +82,7 @@ resource "onepassword_item" "stack_vault_item" {
       value = grafana_cloud_stack.this.prometheus_user_id
     }
     field {
-      label = "password (write-only)"
+      label = "password (read/write)"
       type  = "CONCEALED"
       value = grafana_cloud_access_policy_token.write_only[0].token
     }
