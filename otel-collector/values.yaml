@@ -89,7 +89,7 @@ config:
       traces:
         exporters:
           # - debug
-          - otlphttps
+          - otlphttp
           %{ if diagram_otel_receiver_endpoint != "" ~}
           - otlpdiagram
           %{ endif ~}
