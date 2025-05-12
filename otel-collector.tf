@@ -21,7 +21,6 @@ resource "helm_release" "otel_collector" {
       collector_token = local.collecot_token_base64
       enable_collector_for_external_access = var.enable_collector_for_external_access
       diagram_otel_receiver_endpoint = var.diagram_otel_receiver_endpoint
-      send_to_diagram_receiver_feature_toggle = var.send_to_diagram_receiver_feature_toggle
     })
   ]
 }
