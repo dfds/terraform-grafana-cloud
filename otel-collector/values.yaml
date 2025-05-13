@@ -24,12 +24,12 @@ config:
       endpoint: ${otlphttp_endpoint}
       headers:
         Authorization: Basic ${stack_token}
-    %{ if diagram_otel_receiver_endpoint != "" ~}
+%{ if diagram_otel_receiver_endpoint != "" ~}
     otlpdiagram:
       endpoint: ${diagram_otel_receiver_endpoint}
       tls:
         insecure: true 
-    %{ endif ~}
+%{ endif ~}
     debug: null
   processors:
     batch:
@@ -90,9 +90,9 @@ config:
         exporters:
           # - debug
           - otlphttp
-          %{ if diagram_otel_receiver_endpoint != "" ~}
+%{ if diagram_otel_receiver_endpoint != "" ~}
           - otlpdiagram
-          %{ endif ~}
+%{ endif ~}
         processors:
           # - memory_limiter
           - batch
