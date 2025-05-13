@@ -25,7 +25,7 @@ config:
       headers:
         Authorization: Basic ${stack_token}
 %{ if diagram_otel_receiver_endpoint != "" ~}
-    otlpdiagram:
+    otlp/diagram:
       endpoint: ${diagram_otel_receiver_endpoint}
       tls:
         insecure: true 
@@ -91,7 +91,7 @@ config:
           # - debug
           - otlphttp
 %{ if diagram_otel_receiver_endpoint != "" ~}
-          - otlpdiagram
+          - otlp/diagram
 %{ endif ~}
         processors:
           # - memory_limiter
