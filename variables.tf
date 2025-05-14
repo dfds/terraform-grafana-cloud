@@ -28,6 +28,12 @@ variable "hosted_zone_name" {
   default     = null
 }
 
+variable "diagram_otel_receiver_endpoint" {
+  type        = string
+  description = "Endpoint for the diagram otel receiver"
+  default     = ""
+}
+
 variable "url" {
   type        = string
   description = "Custom URL for the Grafana instance. Should not be specified when passing `hosted_zone_name`"
