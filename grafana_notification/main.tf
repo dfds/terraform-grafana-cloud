@@ -32,12 +32,12 @@ resource "grafana_notification_policy" "this" {
       }
     }
     policy {
-      group_by = ["grafana_folder", "alertname"]
-      repeat_interval = "24h"
+      group_by        = ["grafana_folder", "alertname"]
+      repeat_interval = var.repeat_interval
       matcher {
         label = "repeat"
         match = "="
-        value = "24h"
+        value = var.repeat_interval
       }
     }
   }
@@ -46,7 +46,7 @@ resource "grafana_notification_policy" "this" {
     for_each = var.additional_policies
     content {
       contact_point = policy.value.contact_point
-      group_by = policy.value.group_by
+      group_by      = policy.value.group_by
       dynamic "matcher" {
         for_each = policy.value.matcher
         content {
