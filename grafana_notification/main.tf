@@ -33,11 +33,11 @@ resource "grafana_notification_policy" "this" {
     }
     policy {
       group_by        = ["grafana_folder", "alertname"]
-      repeat_interval = "24h"
+      repeat_interval = "1d"
       matcher {
         label = "repeat"
         match = "="
-        value = "24h"
+        value = "1d"
       }
     }
   }
