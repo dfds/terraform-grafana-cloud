@@ -18,7 +18,7 @@ resource "grafana_data_source" "athena" {
 
 # trunk-ignore(tflint/terraform_unused_declarations)
 data "http" "enable_caching" {
-  for_each = var.enable_caching && var.grafana_url != "" && var.bearer_token != "" ? grafana_data_source.athena : {}
+  for_each = var.enable_caching && var.grafana_url != "" && nonsensitive(var.bearer_token) != "" ? grafana_data_source.athena : {}
   url      = "${var.grafana_url}/api/datasources/${grafana_data_source.athena[each.key].uid}/cache/enable"
   method   = "POST"
 
