@@ -3,7 +3,8 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.34.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.11.0 |
 | <a name="requirement_grafana"></a> [grafana](#requirement\_grafana) | >= 3.13.2 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.14.0 |
 | <a name="requirement_onepassword"></a> [onepassword](#requirement\_onepassword) | >= 2.1.0 |
@@ -13,7 +14,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws.route53"></a> [aws.route53](#provider\_aws.route53) | >= 5.34.0 |
+| <a name="provider_aws.route53"></a> [aws.route53](#provider\_aws.route53) | >= 6.11.0 |
 | <a name="provider_grafana.cloud"></a> [grafana.cloud](#provider\_grafana.cloud) | >= 3.13.2 |
 | <a name="provider_grafana.stack"></a> [grafana.stack](#provider\_grafana.stack) | >= 3.13.2 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.14.0 |
