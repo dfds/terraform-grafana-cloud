@@ -81,11 +81,11 @@ additional_policies = [
 */
 variable "additional_policies" {
   type = list(object({
-    contact_point = string
-    group_by = list(string)
-    matcher = list(map(string))
+    contact_point   = string
+    group_by        = list(string)
+    matcher         = list(map(string))
     repeat_interval = string
   }))
-  default = []
+  default     = []
   description = "Pass extra policies as is"
 }
