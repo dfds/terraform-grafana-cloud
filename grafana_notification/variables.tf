@@ -69,7 +69,7 @@ additional_policies = [
   {
     contact_point = "Cloud Engineering - SSU Slack"
     group_by = ["grafana_folder"]
-    repeat_interval = "1d"
+    repeat_interval = "24h"
     matcher = [
       {
         label = "grafana_folder"
