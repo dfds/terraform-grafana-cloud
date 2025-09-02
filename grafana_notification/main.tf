@@ -37,7 +37,7 @@ resource "grafana_notification_policy" "this" {
       matcher {
         label = "repeat"
         match = "="
-        value = "1d"
+        value = "24h"
       }
     }
   }
