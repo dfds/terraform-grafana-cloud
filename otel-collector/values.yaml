@@ -42,6 +42,31 @@ config:
           severity_number:
             min: "INFO"
             match_undefined: true
+%{ if enable_collector_tailsampling ~}
+    tail_sampling:
+      # https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/tailsamplingprocessor
+      policies:
+        [
+          {
+            # use probabilistic sampling services using tailsampling
+            name: randomized-policy,
+            type: probabilistic,
+            probabilistic: { sampling_percentage: ${collector_tailsampling_probablistic_percentage} },
+          },
+          # always sample if there is an error for services using tailsampling
+          {
+            name: trace-status-policy,
+            type: status_code,
+            status_code: { status_codes: [ERROR] },
+          },
+          {
+            # always sample if the force_sample attribute is set to true
+            name: force-sample,
+            type: boolean_attribute,
+            boolean_attribute: { key: app.force_sample, value: true },
+          },
+        ]
+%{ endif ~}
     # If set to null, will be overridden with values based on k8s resource limits
     # memory_limiter: null
 %{ if enable_collector_for_external_access ~}

@@ -34,6 +34,18 @@ variable "diagram_otel_receiver_endpoint" {
   default     = ""
 }
 
+variable "enable_collector_tailsampling" {
+  type        = bool
+  description = "Enable tail sampling for the otel collector"
+  default     = false
+}
+
+variable "collector_tailsampling_probablistic_percentage" {
+  type        = number
+  description = "Tailsampling probablistic sampling percentage."
+  default     = 25
+}
+
 variable "url" {
   type        = string
   description = "Custom URL for the Grafana instance. Should not be specified when passing `hosted_zone_name`"
