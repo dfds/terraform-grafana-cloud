@@ -3,7 +3,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.6.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.11.0 |
 | <a name="requirement_grafana"></a> [grafana](#requirement\_grafana) | >= 3.13.2 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.14.0 |
@@ -78,12 +78,14 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_collector_tailsampling_probablistic_percentage"></a> [collector\_tailsampling\_probablistic\_percentage](#input\_collector\_tailsampling\_probablistic\_percentage) | Tailsampling probablistic sampling percentage. | `number` | `25` | no |
 | <a name="input_create_read_only_token"></a> [create\_read\_only\_token](#input\_create\_read\_only\_token) | Whether to create a read-only token | `bool` | `false` | no |
 | <a name="input_create_rules_management_token"></a> [create\_rules\_management\_token](#input\_create\_rules\_management\_token) | Whether to create a rules management token | `bool` | `false` | no |
 | <a name="input_create_write_only_token"></a> [create\_write\_only\_token](#input\_create\_write\_only\_token) | Whether to create a write-only token | `bool` | `false` | no |
 | <a name="input_deploy_otel_agent_k8s"></a> [deploy\_otel\_agent\_k8s](#input\_deploy\_otel\_agent\_k8s) | Whether to deploy the OpenTelemetry agent into a Kubernetes cluster | `bool` | `false` | no |
 | <a name="input_diagram_otel_receiver_endpoint"></a> [diagram\_otel\_receiver\_endpoint](#input\_diagram\_otel\_receiver\_endpoint) | Endpoint for the diagram otel receiver | `string` | `""` | no |
 | <a name="input_enable_collector_for_external_access"></a> [enable\_collector\_for\_external\_access](#input\_enable\_collector\_for\_external\_access) | Whether to enable external access to the OpenTelemetry agent from outside the Kubernetes cluster | `bool` | `false` | no |
+| <a name="input_enable_collector_tailsampling"></a> [enable\_collector\_tailsampling](#input\_enable\_collector\_tailsampling) | Enable tail sampling for the otel collector | `bool` | `false` | no |
 | <a name="input_enable_sso_azuread"></a> [enable\_sso\_azuread](#input\_enable\_sso\_azuread) | Enable SSO Azure AD | `bool` | `false` | no |
 | <a name="input_enable_sso_saml"></a> [enable\_sso\_saml](#input\_enable\_sso\_saml) | Enable SSO SAML | `bool` | `false` | no |
 | <a name="input_grafana_folders"></a> [grafana\_folders](#input\_grafana\_folders) | List of grafana folders to be created | `list(string)` | `[]` | no |
