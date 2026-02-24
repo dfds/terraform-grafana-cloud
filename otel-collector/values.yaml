@@ -111,7 +111,7 @@ config:
           - batch
         receivers:
           - otlp
-      traces/default:
+      traces:
         exporters:
           # - debug
           - otlphttp
