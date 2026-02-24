@@ -111,18 +111,29 @@ config:
           - batch
         receivers:
           - otlp
-      traces:
+      traces/default:
         exporters:
           # - debug
           - otlphttp
-%{ if diagram_otel_receiver_endpoint != "" ~}
-          - otlp/diagram
+        processors:
+          # - memory_limiter
+          - batch
+%{ if enable_collector_tailsampling ~}
+          - tail_sampling
 %{ endif ~}
+        receivers:
+          - otlp
+%{ if diagram_otel_receiver_endpoint != "" ~}
+      traces/diagram:
+        exporters:
+          # - debug
+          - otlp/diagram
         processors:
           # - memory_limiter
           - batch
         receivers:
           - otlp
+%{ endif ~}
 
 # Configuration for ports
 # nodePort is also allowed
