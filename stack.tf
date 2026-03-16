@@ -6,6 +6,7 @@ locals {
   read_only_multi_stack       = "${var.slug}-read-only-multi-stack-access"
   write_only_name             = "${var.slug}-write-only-access"
   rules_management_name       = "${var.slug}-rules-management-access"
+  create_grafana_cloud_stack_service_account = length(var.service_account_editor_permissions) > 0
 }
 
 resource "grafana_cloud_stack" "this" {
@@ -37,7 +38,7 @@ resource "grafana_cloud_stack_service_account_token" "this" {
 }
 
 resource "grafana_cloud_stack_service_account" "editor" {
-  count      = length(var.service_account_editor_permissions) > 0 ? 1 : 0
+  count      = local.create_grafana_cloud_stack_service_account ? 1 : 0
   provider   = grafana.cloud
   stack_slug = grafana_cloud_stack.this.slug
 
@@ -47,7 +48,7 @@ resource "grafana_cloud_stack_service_account" "editor" {
 }
 
 resource "grafana_cloud_stack_service_account_token" "editor" {
-  count      = length(var.service_account_editor_permissions) > 0 ? 1 : 0
+  count      = local.create_grafana_cloud_stack_service_account ? 1 : 0
   provider   = grafana.cloud
   stack_slug = grafana_cloud_stack.this.slug
 
