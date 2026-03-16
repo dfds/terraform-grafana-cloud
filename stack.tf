@@ -6,7 +6,7 @@ locals {
   read_only_multi_stack       = "${var.slug}-read-only-multi-stack-access"
   write_only_name             = "${var.slug}-write-only-access"
   rules_management_name       = "${var.slug}-rules-management-access"
-  create_grafana_cloud_stack_service_account = length(var.service_account_editor_permissions) > 0
+  create_grafana_cloud_stack_service_account = length(var.service_account_editor_permissions) > 0 ? true : false
 }
 
 resource "grafana_cloud_stack" "this" {
