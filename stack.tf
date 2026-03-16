@@ -42,7 +42,7 @@ resource "grafana_cloud_stack_service_account" "editor" {
   stack_slug = grafana_cloud_stack.this.slug
 
   name        = local.service_account_editor_name
-  role        = "Viewer"
+  role        = "Editor"
   is_disabled = false
 }
 
