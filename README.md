@@ -66,7 +66,6 @@ No modules.
 | [grafana_synthetic_monitoring_installation.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/synthetic_monitoring_installation) | resource |
 | [grafana_team.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/team) | resource |
 | [helm_release.otel_collector](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [kubernetes_manifest.ingress_route](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [kubernetes_manifest.middleware](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [onepassword_item.stack_vault_item](https://registry.terraform.io/providers/1Password/onepassword/latest/docs/resources/item) | resource |
 | [random_password.collector_token](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |

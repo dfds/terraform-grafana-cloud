@@ -35,39 +35,6 @@ resource "random_password" "collector_token" {
   override_special = "!#$%&*()-_=+?"
 }
 
-resource "kubernetes_manifest" "ingress_route" {
-  count      = var.deploy_otel_agent_k8s && var.enable_collector_for_external_access ? 1 : 0
-  manifest = {
-    "apiVersion" = "traefik.io/v1alpha1"
-    "kind"       = "IngressRoute"
-    "metadata" = {
-      "name"      = "otel-${var.route53_record_name}"
-      "namespace" = var.otel_collector_namespace
-    }
-    "spec" = {
-       "entryPoints" = []
-        "routes" = [
-          {
-            "kind" = "Rule"
-            "match" = "Host(`otel.dfds.cloud`) && PathPrefix(`/${var.route53_record_name}`)"
-            "middlewares" = [
-              {
-                "name"     = "otel-${var.route53_record_name}"
-                "priority" = 0
-              }
-            ]
-            "services" = [
-              {
-                "kind" = "Service"
-                "name" = "otel-${var.route53_record_name}"
-                "port" = "external"
-              }
-            ]
-          }
-        ]
-    }
-  }
-}
 
 resource "kubernetes_manifest" "middleware" {
   count      = var.deploy_otel_agent_k8s && var.enable_collector_for_external_access ? 1 : 0
