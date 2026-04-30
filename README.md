@@ -18,7 +18,6 @@
 | <a name="provider_grafana.cloud"></a> [grafana.cloud](#provider\_grafana.cloud) | >= 3.13.2 |
 | <a name="provider_grafana.stack"></a> [grafana.stack](#provider\_grafana.stack) | >= 3.13.2 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.14.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
 | <a name="provider_onepassword"></a> [onepassword](#provider\_onepassword) | >= 2.1.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | >= 3.6.0 |
 
@@ -66,7 +65,6 @@ No modules.
 | [grafana_synthetic_monitoring_installation.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/synthetic_monitoring_installation) | resource |
 | [grafana_team.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/team) | resource |
 | [helm_release.otel_collector](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [kubernetes_manifest.middleware](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [onepassword_item.stack_vault_item](https://registry.terraform.io/providers/1Password/onepassword/latest/docs/resources/item) | resource |
 | [random_password.collector_token](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 | [aws_route53_zone.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
