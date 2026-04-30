@@ -1,6 +1,6 @@
 locals {
   otlp_auth_header = var.create_write_only_token ? base64encode("${grafana_cloud_stack.this.id}:${grafana_cloud_access_policy_token.write_only[0].token}") : ""
-  collecot_token_base64 = var.deploy_otel_agent_k8s && var.enable_collector_for_external_access ? base64encode(random_password.collector_token[0].result) : "PLACEHOLDER"
+  collecot_token_base64 = var.deploy_otel_agent_k8s ? base64encode(random_password.collector_token[0].result) : "PLACEHOLDER"
 }
 
 resource "helm_release" "otel_collector" {
@@ -27,30 +27,9 @@ resource "helm_release" "otel_collector" {
   ]
 }
 
-
 resource "random_password" "collector_token" {
-  count            = var.deploy_otel_agent_k8s && var.enable_collector_for_external_access ? 1 : 0
+  count            = var.deploy_otel_agent_k8s ? 1 : 0
   length           = 40
   special          = true
   override_special = "!#$%&*()-_=+?"
-}
-
-
-resource "kubernetes_manifest" "middleware" {
-  count      = var.deploy_otel_agent_k8s && var.enable_collector_for_external_access ? 1 : 0
-  manifest = {
-    "apiVersion" = "traefik.io/v1alpha1"
-    "kind"       = "Middleware"
-    "metadata" = {
-      "name"      = "otel-${var.route53_record_name}"
-      "namespace" = var.otel_collector_namespace
-    }
-    "spec" = {
-      "stripPrefix" = {
-        "prefixes" = [
-          "/${var.route53_record_name}"
-        ]
-      }
-    }
-  }
 }

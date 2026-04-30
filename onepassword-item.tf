@@ -17,12 +17,12 @@ resource "onepassword_item" "stack_vault_item" {
         value = "otel-${var.route53_record_name}.${var.otel_collector_namespace}.svc.cluster.local:4317"
       }
       field {
-        label = var.enable_collector_for_external_access ? "Collector ingress URL" : "Collector ingress URL (disabled)"
+        label = "Collector ingress URL"
         type  = "STRING"
-        value = var.enable_collector_for_external_access ? "otel.dfds.cloud/${var.route53_record_name}" : "PLACEHOLDER"
+        value = "otel.dfds.cloud/${var.route53_record_name}"
       }
       field {
-        label = var.enable_collector_for_external_access ? "Collector token": "Collector token (disabled)"
+        label = "Collector token"
         type  = "CONCEALED"
         value = local.collecot_token_base64
       }
