@@ -1,6 +1,8 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "branchPrefix": "feature/renovate/",
+    "extends": [
+        "local>dfds/renovate-config"
+    ],
     "terraform": {
         "managerFilePatterns": [
             "/\\.tf$/",
@@ -8,29 +10,29 @@
         ]
     },
     "packageRules": [
-        {
-            "matchUpdateTypes": [
-                "pin",
-                "digest",
-                "patch",
-                "lockFileMaintenance"
-            ],
-            "minimumReleaseAge": null,
-            "automerge": true,
-            "automergeType": "branch",
-            "matchCurrentVersion": "!/^0/",
-            "ignoreTests": true
-        },
-        {
-            "matchUpdateTypes": [
-                "minor",
-                "major"
-            ],
-            "minimumReleaseAge": "5 days",
-            "automerge": false,
-            "automergeType": "branch",
-            "matchCurrentVersion": "!/^0/",
-            "ignoreTests": true
-        }
-    ]
+    {
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "addLabels": [
+        "release:patch"
+      ]
+    },
+    {
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "addLabels": [
+        "release:minor"
+      ]
+    },
+    {
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "addLabels": [
+        "release:major"
+      ]
+    }
+  ]
 }
