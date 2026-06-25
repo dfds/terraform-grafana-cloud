@@ -7,25 +7,22 @@ resource "onepassword_item" "stack_vault_item" {
   url      = grafana_cloud_stack.this.url
 
 
-  dynamic "section" {
-    for_each = var.deploy_otel_agent_k8s ? [1] : []
-    content {
-      label = "OpenTelemetry Collector connection details (Kubernetes):"
-      field {
-        label = "endpoint"
-        type  = "STRING"
-        value = "otel-${var.route53_record_name}.${var.otel_collector_namespace}.svc.cluster.local:4317"
-      }
-      field {
-        label = "Collector ingress URL"
-        type  = "STRING"
-        value = "otel.dfds.cloud/${var.route53_record_name}"
-      }
-      field {
-        label = "Collector token"
-        type  = "CONCEALED"
-        value = local.collecot_token_base64
-      }
+  section {
+    label = "OpenTelemetry Collector connection details (Kubernetes):"
+    field {
+      label = "endpoint"
+      type  = "STRING"
+      value = "otel-${var.route53_record_name}.${var.otel_collector_namespace}.svc.cluster.local:4317"
+    }
+    field {
+      label = "Collector ingress URL"
+      type  = "STRING"
+      value = "otel.dfds.cloud/${var.route53_record_name}"
+    }
+    field {
+      label = "Collector token"
+      type  = "CONCEALED"
+      value = local.collecot_token_base64
     }
   }
 
