@@ -1,6 +1,6 @@
 locals {
   otlp_auth_header = var.create_write_only_token ? base64encode("${grafana_cloud_stack.this.id}:${grafana_cloud_access_policy_token.write_only[0].token}") : ""
-  collecot_token_base64 = var.deploy_otel_agent_k8s ? base64encode(random_password.collector_token[0].result) : "PLACEHOLDER"
+  collecot_token_base64 = base64encode(random_password.collector_token.result)
 }
 
 resource "helm_release" "otel_collector" {
@@ -28,7 +28,6 @@ resource "helm_release" "otel_collector" {
 }
 
 resource "random_password" "collector_token" {
-  count            = var.deploy_otel_agent_k8s ? 1 : 0
   length           = 40
   special          = true
   override_special = "!#$%&*()-_=+?"
