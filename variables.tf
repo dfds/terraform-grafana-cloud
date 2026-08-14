@@ -230,3 +230,9 @@ variable "tags" {
   description = "A map of tags to apply to all the resources deployed by the module"
   default     = {}
 }
+
+variable "collector_internal_endpoint" {
+  type        = string
+  description = "Internal endpoint for the OpenTelemetry collector"
+  default     = ""
+}

@@ -75,6 +75,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_collector_internal_endpoint"></a> [collector\_internal\_endpoint](#input\_collector\_internal\_endpoint) | Internal endpoint for the OpenTelemetry collector | `string` | `""` | no |
 | <a name="input_collector_tailsampling_probablistic_percentage"></a> [collector\_tailsampling\_probablistic\_percentage](#input\_collector\_tailsampling\_probablistic\_percentage) | Tailsampling probablistic sampling percentage. | `number` | `25` | no |
 | <a name="input_create_read_only_token"></a> [create\_read\_only\_token](#input\_create\_read\_only\_token) | Whether to create a read-only token | `bool` | `false` | no |
 | <a name="input_create_rules_management_token"></a> [create\_rules\_management\_token](#input\_create\_rules\_management\_token) | Whether to create a rules management token | `bool` | `false` | no |

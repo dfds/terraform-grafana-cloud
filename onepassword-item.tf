@@ -12,7 +12,7 @@ resource "onepassword_item" "stack_vault_item" {
     field {
       label = "endpoint"
       type  = "STRING"
-      value = "otel-${var.route53_record_name}.${var.otel_collector_namespace}.svc.cluster.local:4317"
+      value = "${var.collector_internal_endpoint}"
     }
     field {
       label = "Collector ingress URL"
