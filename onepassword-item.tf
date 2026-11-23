@@ -22,7 +22,7 @@ resource "onepassword_item" "stack_vault_item" {
     field {
       label = "Collector token"
       type  = "CONCEALED"
-      value = local.collecot_token_base64
+      value = local.collector_token_base64
     }
   }
 
