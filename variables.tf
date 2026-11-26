@@ -28,24 +28,6 @@ variable "hosted_zone_name" {
   default     = null
 }
 
-variable "diagram_otel_receiver_endpoint" {
-  type        = string
-  description = "Endpoint for the diagram otel receiver"
-  default     = ""
-}
-
-variable "enable_collector_tailsampling" {
-  type        = bool
-  description = "Enable tail sampling for the otel collector"
-  default     = false
-}
-
-variable "collector_tailsampling_probablistic_percentage" {
-  type        = number
-  description = "Tailsampling probablistic sampling percentage."
-  default     = 25
-}
-
 variable "url" {
   type        = string
   description = "Custom URL for the Grafana instance. Should not be specified when passing `hosted_zone_name`"
@@ -162,30 +144,6 @@ variable "sso_saml_role_values_editor" {
   type        = string
   default     = ""
   description = "List of comma- or space-separated roles which will be mapped into the Viewer role used in the saml response"
-}
-
-variable "deploy_otel_agent_k8s" {
-  type        = bool
-  description = "Whether to deploy the OpenTelemetry agent into a Kubernetes cluster"
-  default     = false
-}
-
-variable "enable_collector_for_external_access" {
-  type        = bool
-  description = "Whether to enable external access to the OpenTelemetry agent from outside the Kubernetes cluster"
-  default     = false
-}
-
-variable "otel_collector_namespace" {
-  type        = string
-  description = "Namespace to deploy the OpenTelemetry agent into"
-  default     = "grafana"
-}
-
-variable "otel_collector_chart_version" {
-  type        = string
-  description = "Version of the Open Telemetry collector helm chart to deploy"
-  default     = null
 }
 
 variable "onepassword_vault_id" {

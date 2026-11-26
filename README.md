@@ -17,7 +17,6 @@
 | <a name="provider_aws.route53"></a> [aws.route53](#provider\_aws.route53) | >= 6.11.0 |
 | <a name="provider_grafana.cloud"></a> [grafana.cloud](#provider\_grafana.cloud) | >= 3.13.2 |
 | <a name="provider_grafana.stack"></a> [grafana.stack](#provider\_grafana.stack) | >= 3.13.2 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.14.0 |
 | <a name="provider_onepassword"></a> [onepassword](#provider\_onepassword) | >= 2.1.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | >= 3.6.0 |
 
@@ -64,7 +63,6 @@ No modules.
 | [grafana_sso_settings.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/sso_settings) | resource |
 | [grafana_synthetic_monitoring_installation.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/synthetic_monitoring_installation) | resource |
 | [grafana_team.this](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/team) | resource |
-| [helm_release.otel_collector](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [onepassword_item.stack_vault_item](https://registry.terraform.io/providers/1Password/onepassword/latest/docs/resources/item) | resource |
 | [random_password.collector_token](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 | [aws_route53_zone.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
@@ -76,22 +74,15 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_collector_internal_endpoint"></a> [collector\_internal\_endpoint](#input\_collector\_internal\_endpoint) | Internal endpoint for the OpenTelemetry collector | `string` | `""` | no |
-| <a name="input_collector_tailsampling_probablistic_percentage"></a> [collector\_tailsampling\_probablistic\_percentage](#input\_collector\_tailsampling\_probablistic\_percentage) | Tailsampling probablistic sampling percentage. | `number` | `25` | no |
 | <a name="input_create_read_only_token"></a> [create\_read\_only\_token](#input\_create\_read\_only\_token) | Whether to create a read-only token | `bool` | `false` | no |
 | <a name="input_create_rules_management_token"></a> [create\_rules\_management\_token](#input\_create\_rules\_management\_token) | Whether to create a rules management token | `bool` | `false` | no |
 | <a name="input_create_write_only_token"></a> [create\_write\_only\_token](#input\_create\_write\_only\_token) | Whether to create a write-only token | `bool` | `false` | no |
-| <a name="input_deploy_otel_agent_k8s"></a> [deploy\_otel\_agent\_k8s](#input\_deploy\_otel\_agent\_k8s) | Whether to deploy the OpenTelemetry agent into a Kubernetes cluster | `bool` | `false` | no |
-| <a name="input_diagram_otel_receiver_endpoint"></a> [diagram\_otel\_receiver\_endpoint](#input\_diagram\_otel\_receiver\_endpoint) | Endpoint for the diagram otel receiver | `string` | `""` | no |
-| <a name="input_enable_collector_for_external_access"></a> [enable\_collector\_for\_external\_access](#input\_enable\_collector\_for\_external\_access) | Whether to enable external access to the OpenTelemetry agent from outside the Kubernetes cluster | `bool` | `false` | no |
-| <a name="input_enable_collector_tailsampling"></a> [enable\_collector\_tailsampling](#input\_enable\_collector\_tailsampling) | Enable tail sampling for the otel collector | `bool` | `false` | no |
 | <a name="input_enable_sso_azuread"></a> [enable\_sso\_azuread](#input\_enable\_sso\_azuread) | Enable SSO Azure AD | `bool` | `false` | no |
 | <a name="input_enable_sso_saml"></a> [enable\_sso\_saml](#input\_enable\_sso\_saml) | Enable SSO SAML | `bool` | `false` | no |
 | <a name="input_grafana_folders"></a> [grafana\_folders](#input\_grafana\_folders) | List of grafana folders to be created | `list(string)` | `[]` | no |
 | <a name="input_hosted_zone_name"></a> [hosted\_zone\_name](#input\_hosted\_zone\_name) | Name of the hosted zone to contain the route53 record. If unspecified no route53 record is created. | `string` | `null` | no |
 | <a name="input_install_synthetic_monitoring"></a> [install\_synthetic\_monitoring](#input\_install\_synthetic\_monitoring) | Whether to install synthetic monitoring | `bool` | n/a | yes |
 | <a name="input_onepassword_vault_id"></a> [onepassword\_vault\_id](#input\_onepassword\_vault\_id) | The ID of the vault to store the stack information in | `string` | n/a | yes |
-| <a name="input_otel_collector_chart_version"></a> [otel\_collector\_chart\_version](#input\_otel\_collector\_chart\_version) | Version of the Open Telemetry collector helm chart to deploy | `string` | `null` | no |
-| <a name="input_otel_collector_namespace"></a> [otel\_collector\_namespace](#input\_otel\_collector\_namespace) | Namespace to deploy the OpenTelemetry agent into | `string` | `"grafana"` | no |
 | <a name="input_plugins"></a> [plugins](#input\_plugins) | List of plugins | <pre>list(object({<br/>    plugin  = string<br/>    version = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_region_slug"></a> [region\_slug](#input\_region\_slug) | Region slug to assign to this stack. Changing region will destroy the existing stack and create a new one in the desired region | `string` | `null` | no |
 | <a name="input_route53_record_name"></a> [route53\_record\_name](#input\_route53\_record\_name) | Name of the route53 record | `string` | `null` | no |
