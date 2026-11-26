@@ -9,6 +9,12 @@ variable "folder" {
   description = "The id or UID of the folder to optionally save the dashboard in."
 }
 
+variable "folder_uid" {
+  type        = string
+  default     = null
+  description = "The UID of the folder to save v2 (Dynamic Dashboards) in. Defaults to the value of folder, which must then be a UID."
+}
+
 variable "overwrite" {
   type        = bool
   default     = true
