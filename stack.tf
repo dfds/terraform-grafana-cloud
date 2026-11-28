@@ -359,3 +359,12 @@ resource "grafana_sso_settings" "azuread" {
     use_refresh_token          = true
   }
 }
+
+resource "aws_ssm_parameter" "stack_id" {
+  provider = aws.route53
+  name     = "/grafana-cloud/${var.slug}/stack-id"
+  type     = "String"
+  value    = grafana_cloud_stack.this.id
+
+  tags = var.tags
+}
